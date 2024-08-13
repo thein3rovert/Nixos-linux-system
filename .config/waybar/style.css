@@ -1,0 +1,80 @@
+* {
+    font-family: JetBrainsMonoNerdFontMono;
+    font-size: 14px;
+    font-weight: 600;
+    min-height: 15px;
+    padding: 0 3px;
+  }
+  
+  window#waybar {
+    border-radius: 5px;
+    background: #060e20;
+    /* background-color: rgba(38, 16, 51, 0);
+    transition-property: background-color;
+    transition-duration: .5s; */
+  }
+
+  
+  #custom-launcher {
+    color: #ffffff;
+    padding: 0 5px;
+    margin: 5px 0;
+  }
+  
+  #workspaces button {
+    background-color: transparent;
+    color: #ffffff;
+  }
+  
+  #workspaces button.active {
+    color: #00bfbc;
+  }
+  
+  #workspaces button.focused {
+    background-color: #64727d;
+    box-shadow: inset 0 -3px #ffffff;
+  }
+  
+  tooltip {
+    background: #272e33;
+  }
+  
+  tooltip label {
+    color: white;
+  }
+  
+  #clock {
+    color: #ffffff;
+  }
+  
+  #custom-spotify {
+    border-radius: 5px;
+    background: #83c092;
+    color: #282828;
+    padding: 0 5px;
+    margin: 5px 0;
+  }
+  
+  #pulseaudio {
+    color: #7fbbb3;
+  }
+  
+  #battery {
+    color: #7fbbb3;
+  }
+  
+  #battery.warning {
+    color: #ffc100;
+  }
+  
+  #battery.critical {
+    color: #c40c0c;
+  }
+  
+  #battery.average {
+    color: #219c90;
+  }
+  
+  #battery.charging {
+    color: #8decb4;
+  }

@@ -5,6 +5,7 @@
     ./swww.nix
     ./swaynotificationcenter.nix
     ./hyprcursor.nix
+    #./eww.nix
   ];
 }
 

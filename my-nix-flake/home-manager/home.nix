@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, unstablePkgs, ... }:
 
 {
   # IMPORTS FOR zsh config
@@ -9,6 +9,7 @@
     #./apps/git.nix
     # Importing modules
     ./modules
+    #./software/default.nix
   ];
 
   # Home Manager needs a bit of information about you and the paths it should
@@ -23,7 +24,7 @@
   # You should not change this value, even if you update Home Manager. If you do
   # want to update the value, then make sure to first check the Home Manager
   # release notes.
-  home.stateVersion = "24.05"; # Please read the comment before changing.
+  home.stateVersion = "24.11"; # Please read the comment before changing.
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
@@ -32,6 +33,13 @@
    #.............. Need the macro editor for testing pourpose
     micro
     vscode
+    tree
+    nerdfonts
+    pavucontrol # volume control
+    brightnessctl # Brightness control
+    blueman
+    discord
+
 
     
     # # Adds the 'hello' command to your environment. It prints a friendly
@@ -105,4 +113,11 @@
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
   nixpkgs.config.allowUnfree = true;
+
+  ########
+ # WAYBAR
+  ########
+  programs.waybar = {
+    enable = true;
+  };
 }
