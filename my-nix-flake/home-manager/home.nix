@@ -12,6 +12,11 @@
     #./software/default.nix
   ];
 
+  catppuccin = {
+        accent = "mauve";
+        flavor = "macchiato";
+      };
+
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "introvert";
@@ -39,6 +44,23 @@
     brightnessctl # Brightness control
     blueman
     discord
+    hyprlock
+    wlogout
+    obsidian 
+    oh-my-posh
+    hyprshot #Screenshot
+    obs-studio # Video Recorder
+    gtk3
+    gtk4
+    fastfetch
+    #Image redenring dependencies
+    xorg.libX11
+    cairo
+    libpng
+    librsvg
+
+    zathura
+    btop
 
 
     

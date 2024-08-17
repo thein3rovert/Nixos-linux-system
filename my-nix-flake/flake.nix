@@ -14,18 +14,14 @@
     catppuccin.url = "github:catppuccin/nix";
     
   };
-  outputs = { nixpkgs, home-manager,catppuccin, ...} :
+  outputs = { self, nixpkgs, home-manager,catppuccin, ...} :
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
-      home-manager-inputs = {
-        
-      };
-      nixos-inputs = {};
-      shared-inputs = {};
     in {
       nixosConfigurations = {
         nixos  = nixpkgs.lib.nixosSystem {
+        system = system;
         modules = [
             catppuccin.nixosModules.catppuccin
             ./nixos/configuration.nix
@@ -33,11 +29,12 @@
         };
       };
       homeConfigurations = {
-        introvert = home-manager.lib.homeManagerConfiguration {
+         introvert= home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
           modules = [
             catppuccin.homeManagerModules.catppuccin
             ./home-manager/home.nix
+            ./home-manager/modules
           ];
         };
       };
