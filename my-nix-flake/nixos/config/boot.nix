@@ -11,7 +11,10 @@
   boot.tmp.useTmpfs = true;
   boot.tmp.tmpfsSize = "25%";
 
-  # This is for OBS Virtual Cam Support - v4l2loopback setup
-  boot.kernelModules = [ "v4l2loopback" ];
-  boot.extraModulePackages = [ config.boot.kernelPackages.v4l2loopback ];
+  #  This is for OBS Virtual Cam Support - v4l2loopback setup
+#  boot.kernelModules = [ "v4l2loopback" ];
+
+
+  
+
 }

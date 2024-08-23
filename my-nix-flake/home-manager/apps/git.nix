@@ -1,11 +1,14 @@
 { inputs, pkgs, ... }:
 
 let 
-  inherit (import ../options.nix)
+  inherit (import ../../options.nix)
     gitUsername gitEmail;
 in {
- program.git.enable = true;
- program.git.userName = "${gitUsername}";
- program.git.userEmail = "${gitEmail}";
- home.packages = [ pkgs.gh ];
+
+programs.git = {
+    enable = true;
+    userName = "${gitUsername}";
+    userEmail = "${gitEmail}";
+  };
+   home.packages = [ pkgs.gh ];
 }

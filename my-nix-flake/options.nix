@@ -14,7 +14,7 @@ in {
     username = username;
     hostname = hostname;
     userHome = "${userHome}";
-    flakeDir = "${flakeDir}";
+    flakeDir = "${flakeDirectory}";
   
     #GIT RELATED
     gitUsername = "thein3rovert";
@@ -25,11 +25,11 @@ in {
 
      # System Settings
     clock24h = false;
-    theLocale = "en_US.UTF-8";
-    theKBDLayout = "us";
+    theLocale = "en_GB.UTF-8";
+    theKBDLayout = "uk";
     theSecondKBDLayout = "de";
     theKBDVariant = "";
-    theLCVariables = "en_US.UTF-8";
+    theLCVariables = "en_GB.UTF-8";
     theTimezone = "Europe/London";
     sdl-videodriver = "x11";
     theShell = "zsh"; # Possible options: bash, zsh
@@ -38,9 +38,9 @@ in {
     gpuType = "intel";
 
     #Proxy Settings - Not using yet, have to figure out my proxy
-#   useProxy = proxy;
-#   socksProxy = if proxy == true then "socks5://127.0.0.1:${socks}" else "";
-#   httpProxy = if proxy == true then "http://127.0.0.1:${http}" else "";
+   useProxy = proxy;
+   socksProxy = if proxy == true then "socks5://127.0.0.1:${socks}" else "";
+   httpProxy = if proxy == true then "http://127.0.0.1:${http}" else "";
 
     #Firewall Allowed TCP Ports
     useFirewall = true;

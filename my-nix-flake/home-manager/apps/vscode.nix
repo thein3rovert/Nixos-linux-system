@@ -1,11 +1,10 @@
 {
   pkgs,
-  home-manager,
   username,
   ...
 }:
 {
-  home-manager.users.${username} = {
+#  home-manager.users.${username} = {
     # VS Code on Wayland has issues, make sure to set the title bar to custom
     # https://github.com/microsoft/vscode/issues/181533
     programs.vscode = {
@@ -32,8 +31,8 @@
           "markdown" = true;
           "scminput" = false;
         };
-       # "powershell.powerShellAdditionalExePaths" = "/run/current-system/sw/bin/pwsh";
+        "powershell.powerShellAdditionalExePaths" = "/run/current-system/sw/bin/pwsh";
       };
     };
-  };
+#  };
 }

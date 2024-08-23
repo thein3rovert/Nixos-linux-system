@@ -1,15 +1,25 @@
-{ config, pkgs, unstablePkgs, ... }:
+{ inputs,username,config, pkgs, unstablePkgs, ... }:
 
-{
+let 
+  inherit (import ../options.nix)
+    gitUsername gitEmail;
+in {
+
+
   # IMPORTS FOR zsh config
   imports = [
     ./apps/zsh.nix
   #IMPORT FROM MICRO config
     ./apps/micro.nix
-    #./apps/git.nix
+    ./apps/git.nix
     # Importing modules
     ./modules
+    ./apps/gtk.nix
+    ./apps/portals.nix
+    ./apps/cursor.nix
+    ./apps/htop.nix
     #./software/default.nix
+    ./apps/vscode.nix
   ];
 
   catppuccin = {
@@ -19,8 +29,8 @@
 
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
-  home.username = "introvert";
-  home.homeDirectory = "/home/introvert";
+  home.username = "${username}";
+  home.homeDirectory = "/home/${username}";
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
@@ -61,6 +71,8 @@
 
     zathura
     btop
+
+    playerctl
 
 
     

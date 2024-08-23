@@ -8,7 +8,8 @@
     // "spacing": 6,
     "modules-left": ["custom/launcher", "hyprland/workspaces"],
     "modules-center": ["clock","memory","cpu","temperature"],
-    "modules-right": ["pulseaudio", "bluetooth", "tray", "battery"],
+    "modules-right": ["network", "pulseaudio", "bluetooth", "tray", "battery"],
+
     // "custom/spotify": {
     //   "format": " {}",
     //   "max-length": 300,
@@ -55,7 +56,7 @@
       },
     },
     "custom/launcher": {
-      "format": " ",
+      "format": "❄️  ",  //
       "tooltip": false,
     },
     "bluetooth": {
@@ -68,6 +69,14 @@
       "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
       "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
     },
+    "network": {
+            /* "format-wifi": "直", */
+            "format-wifi": "{icon}",
+            "format-ethernet": "",
+            "format-disconnected": "󰲛",
+            "tooltip-format": "{essid}",
+            "format-icons": ["󰤯","󰤟","󰤢","󰤥","󰤨"],
+        },
     "pulseaudio": {
       "format": "{icon}  {volume}%",
       "format-bluetooth": "{icon}",
