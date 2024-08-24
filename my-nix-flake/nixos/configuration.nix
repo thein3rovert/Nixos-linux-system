@@ -15,7 +15,7 @@ in
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      ./config
+      ./config # Contains hardware files
     ];
 
 #   ____  _____  _____  ____ 
@@ -60,6 +60,10 @@ in
 #   )  (  )__)   )(   )    (  )(_)(  )   / )  ( 
 #  (_)\_)(____) (__) (__/\__)(_____)(_)\_)(_)\_)
 
+  # Enable networking
+  networking.hostName = "${hostname}"; # Define your hostname
+  networking.networkmanager.enable = true;
+  
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
@@ -72,9 +76,6 @@ in
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
-  # Enable networking
-  networking.hostName = "${hostname}"; # Define your hostname
-  networking.networkmanager.enable = true;
 #  networking.proxy.default = "${socksProxy}";
 #  networking.proxy.allProxy = "${socksProxy}";
 #  networking.proxy.rsyncProxy = "${socksProxy}";
@@ -98,6 +99,8 @@ in
   services.xserver.enable = true;
   # Enable CUPS to print documents.
   services.printing.enable = true;
+  services.xserver.updateDbusEnvironment = true;
+  # Enable Audio
   services.pipewire = {
       enable = true;
       alsa.enable = true;
@@ -109,6 +112,7 @@ in
       # use the example session manager (no others are packaged yet so this is enabled by default,
       # no need to redefine it in your config for now)
       #media-session.enable = true;
+      
     };
 
   # Configure keymap in X11
@@ -132,6 +136,7 @@ in
 #  (_) (_)(__)(__)(_)\_)(____/(__/\__)(__)(__)(_)\_)(____)
 
 # BLUETOOTH CONFI HAS BEEN MOVED TO THE SERVICES.NIX
+
 #   ___  ____  ___  __  __  ____  ____  ____  _  _ 
 #  / __)( ___)/ __)(  )(  )(  _ \(_  _)(_  _)( \/ )
 #  \__ \ )__)( (__  )(__)(  )   / _)(_   )(   \  / 
@@ -184,32 +189,56 @@ in
 #  (  _ \(  _ \(  _  )/ __)(  _ \  /__\  (  \/  )/ __)
 #   )___/ )   / )(_)(( (_-. )   / /(__)\  )    ( \__ \
 #  (__)  (_)\_)(_____)\___/(_)\_)(__)(__)(_/\/\_)(___/
-
+  #SHELL CONFIGURATION
   programs.zsh.enable = true;
   environment.shells = with pkgs; [ zsh ];
+  
   programs.hyprland = {
     enable = true;
+     portalPackage = pkgs.xdg-desktop-portal-wlr
+      // {
+        override = args: pkgs.xdg-desktop-portal-wlr.override (builtins.removeAttrs args ["hyprland"]);
+      };
    #xwayland.enable - true; # I dont jabe xwayland yet so i am not using it
   };
+  
   programs.firefox.enable = true;
   nixpkgs.config.allowUnfree = true;
-  # $ nix search wget
+
+
+#     _____           _                   _____           _                         
+#    / ____|         | |                 |  __ \         | |                        
+#   | (___  _   _ ___| |_ ___ _ __ ___   | |__) |_ _  ___| | ____ _  __ _  ___  ___ 
+#    \___ \| | | / __| __/ _ \ '_ ` _ \  |  ___/ _` |/ __| |/ / _` |/ _` |/ _ \/ __|
+#    ____) | |_| \__ \ ||  __/ | | | | | | |  | (_| | (__|   < (_| | (_| |  __/\__ \
+#   |_____/ \__, |___/\__\___|_| |_| |_| |_|   \__,_|\___|_|\_\__,_|\__, |\___||___/
+#            __/ |                                                   __/ |          
+#           |___/                                                   |___/           
+
   environment.systemPackages = with pkgs; [
     vim
     wget
     git
     
-    (waybar.overrideAttrs (oldAttrs: {
-      mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true"]; }))
-      
-    dunst #for notification
-    libnotify #helps with dunst notification
-    swww #for wallpaper
-    kitty #new terminal
-    rofi-wayland
-    networkmanagerapplet
-    xcb-util-cursor
-    xorg.libxcb
+  # Waybar with experimental features enabled
+  (waybar.overrideAttrs (oldAttrs: {
+    mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true"];
+  }))
+
+
+  # Notification tools
+  dunst        # For notifications
+  libnotify    # Helps with Dunst notifications
+  
+  # Miscellaneous utilities
+  swww                      # For wallpaper management
+  kitty                     # Terminal emulator
+  rofi-wayland              # Application launcher for Wayland
+  networkmanagerapplet      # Network Manager applet
+  xcb-util-cursor           # XCB cursor utilities
+  xorg.libxcb               # Xorg XCB libraries
+
+   # wf-recorder - for recording 
    ];
 
 #   _  _  ____  _  _    ___  ____  ____  ____  ____  _  _  ___  ___ 

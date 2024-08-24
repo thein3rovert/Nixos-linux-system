@@ -13,12 +13,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     
-    #Hyprland Plugins - Not activated
-   # hyprland-plugins = {
-   #       url = "github:hyprwm/hyprland-plugins";
-   #      inputs.hyprland.follows = "hyprland";
-   #     };
     catppuccin.url = "github:catppuccin/nix";
+
+   # stylix.url = "github:danth/stylix"; Dont need this for now
     
   };
 
@@ -64,7 +61,7 @@
           ];
           extraSpecialArgs = {
             inherit inputs; 
-            inherit username; 
+            inherit username;
           };
         };
       };

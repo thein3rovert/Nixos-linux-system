@@ -8,18 +8,22 @@ in {
 
   # IMPORTS FOR zsh config
   imports = [
+      # Importing packages modules
+    ./modules
+    # Imports from apps - configs for packages
     ./apps/zsh.nix
-  #IMPORT FROM MICRO config
     ./apps/micro.nix
     ./apps/git.nix
-    # Importing modules
-    ./modules
     ./apps/gtk.nix
     ./apps/portals.nix
     ./apps/cursor.nix
     ./apps/htop.nix
-    #./software/default.nix
-    ./apps/vscode.nix
+    ./apps/java.nix
+  #./software/default.nix
+  # ./apps/vscode.nix
+  # ./apps/xdg.nix  - dont need for now user-dirs.dirs is okay
+  #./apps/spotify.nix
+  # ./apps/pywal.nix
   ];
 
   catppuccin = {
@@ -31,67 +35,63 @@ in {
   # manage.
   home.username = "${username}";
   home.homeDirectory = "/home/${username}";
+  home.stateVersion = "24.11";
 
-  # This value determines the Home Manager release that your configuration is
-  # compatible with. This helps avoid breakage when a new Home Manager release
-  # introduces backwards incompatible changes.
-  #
-  # You should not change this value, even if you update Home Manager. If you do
-  # want to update the value, then make sure to first check the Home Manager
-  # release notes.
-  home.stateVersion = "24.11"; # Please read the comment before changing.
 
-  # The home.packages option allows you to install Nix packages into your
-  # environment.
   home.packages = with pkgs; [
-    htop
-   #.............. Need the macro editor for testing pourpose
-    micro
-    vscode
-    tree
-    nerdfonts
-    pavucontrol # volume control
-    brightnessctl # Brightness control
-    blueman
-    discord
-    hyprlock
-    wlogout
-    obsidian 
-    oh-my-posh
-    hyprshot #Screenshot
-    obs-studio # Video Recorder
-    gtk3
-    gtk4
-    fastfetch
-    #Image redenring dependencies
-    xorg.libX11
-    cairo
-    libpng
-    librsvg
 
-    zathura
-    btop
+    # System Utilities
+  htop
+  tree
+  brightnessctl  # Brightness control
+  fastfetch  # System information fetcher
 
-    playerctl
+  # Text Editors and IDEs
+  micro  # Need the macro editor for testing purposes
+  vscode
 
+  # Fonts
+  nerdfonts
 
-    
-    # # Adds the 'hello' command to your environment. It prints a friendly
-    # # "Hello, world!" when run.
-    # pkgs.hello
+  # Audio and Volume Control
+  pavucontrol  # Volume control
+  playerctl  # Media player control tool
 
-    # # It is sometimes useful to fine-tune packages, for example, by applying
-    # # overrides. You can do that directly here, just don't forget the
-    # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
-    # # fonts?
-    # (pkgs.nerdfonts.override { fonts = [ "FantasqueSansMono" ]; })
+  # Bluetooth
+  blueman
 
-    # # You can also create simple shell scripts directly inside your
-    # # configuration. For example, this adds a command 'my-hello' to your
-    # # environment:
-    # (pkgs.writeShellScriptBin "my-hello" ''
-    #   echo "Hello, ${config.home.username}!"
-    # '')
+  # Communication
+  discord
+
+  # Window Management and Locking
+  hyprlock
+  wlogout
+
+  # Note-taking and Productivity
+  obsidian
+
+  # Appearance and Shell Customization
+  oh-my-posh
+
+  # Screenshot and Video Recording
+  hyprshot  # Screenshot tool
+  obs-studio  # Video recorder
+
+  # GTK Libraries
+  gtk3
+  gtk4
+
+  # Image Rendering Dependencies
+  xorg.libX11
+  cairo
+  libpng
+  librsvg
+
+  # PDF and Document Viewing
+  zathura
+
+  # System Monitoring
+  btop
   ];
 
 # ----------------------------------------------------------------------
@@ -141,6 +141,7 @@ in {
   #  /etc/profiles/per-user/introvert/etc/profile.d/hm-session-vars.sh
   #
   home.sessionVariables = {
+  #GTK_THEME = "Nordic";
     # EDITOR = "emacs";
   };
 
