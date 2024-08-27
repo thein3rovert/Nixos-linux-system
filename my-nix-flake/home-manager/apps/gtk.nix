@@ -61,10 +61,14 @@
       name = "Tela-circle-dark";
       package = pkgs.tela-circle-icon-theme;
     };
+  #  cursorTheme = {
+ #     name = "Yaru";
+#      package = pkgs.yaru-theme;
+#    };
     cursorTheme = {
-      name = "Yaru";
-      package = pkgs.yaru-theme;
-    };
+           name = "Catppuccin-Mocha-Dark-Cursors";
+           package = pkgs.catppuccin-cursors.mochaDark;
+         };
     font = {
       name = "Roboto";
       size = 11;
@@ -74,7 +78,8 @@
 
   qt = {
     enable = true;
-    platformTheme.name = "gtk";
+    platformTheme.name = "qtct";
+    style.name = "kvantum";
   };
 
   #  gtk = {

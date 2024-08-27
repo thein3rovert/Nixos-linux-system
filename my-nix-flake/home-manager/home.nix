@@ -1,3 +1,4 @@
+
 { inputs,username,config, pkgs, unstablePkgs, ... }:
 
 let 
@@ -26,10 +27,11 @@ in {
   # ./apps/pywal.nix
   ];
 
-  catppuccin = {
-        accent = "mauve";
-        flavor = "macchiato";
-      };
+#  catppuccin = {
+#        enable = true;
+#        accent = "mauve";
+#        flavor = "macchiato"; #mocha
+#  };
 
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
@@ -92,6 +94,8 @@ in {
 
   # System Monitoring
   btop
+  # Screen Recorder
+   wf-recorder
   ];
 
 # ----------------------------------------------------------------------
