@@ -1,4 +1,5 @@
-# Edit this configuration file to define what should be installed on
+
+ # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
@@ -18,11 +19,25 @@ in
       ./config # Contains hardware files
     ];
 
+
+     services.udev.packages = [
+    (pkgs.runCommand "custom-udev-rules" {
+      buildInputs = [ pkgs.coreutils ];
+    } ''
+      mkdir -p $out/lib/udev/rules.d
+      cp ${pkgs.ddcutil}/share/ddcutil/data/60-ddcutil-i2c.rules $out/lib/udev/rules.d/
+    '')
+  ];
+
+  services.udev.extraRules = ''
+      KERNEL=="i2c-[0-9]*", GROUP="i2c", MODE="0660"
+    '';
+
 #   ____  _____  _____  ____ 
 #  (  _ \(  _  )(  _  )(_  _)
-#   ) _ < )(_)(  )(_)(   )(  
+#   ) _ < )(_)(  )(_)(   )(   
 #  (____/(_____)(_____) (__) 
-
+#
   ## For updating my driver
   boot.extraModulePackages = with config.boot.kernelPackages; [
     rtw88
@@ -35,6 +50,14 @@ in
 #   )    (  _)(_ \__ \( (__ 
 #  (_/\/\_)(____)(___/ \___)
 
+#qt.enable = true;
+#qt.style.name = "gtk2";
+
+    catppuccin = {
+        enable = true;
+        flavor = "mocha";
+        accent = "mauve";
+    }; 
 
   # Select internationalisation properties.
     i18n.defaultLocale = "${theLocale}";
@@ -88,59 +111,7 @@ in
 #networking.forwarding = true;
 # boot.kernel.sysctl."net.inet.ip_forward" = 1;
 
-#   ___  ____  ____   _  ____  ___  ____  ___ 
-#  / __)( ___)(  _ \( \/ )(_  _)/ __)( ___)/ __)
-#  \__ \ )__)  )   / \  /  _)(_( (__  )__) \__ \
-#  (___/(____)(_)\_)  \/  (____)\___)(____)(___/
-      # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
-  services.blueman.enable =true;
-  # Enable the X11 windowing system.
-  services.xserver.enable = true;
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
-  services.xserver.updateDbusEnvironment = true;
-  # Enable Audio
-  services.pipewire = {
-      enable = true;
-      alsa.enable = true;
-      alsa.support32Bit = true;
-      pulse.enable = true;
-      # If you want to use JACK applications, uncomment this
-      #jack.enable = true;
-  
-      # use the example session manager (no others are packaged yet so this is enabled by default,
-      # no need to redefine it in your config for now)
-      #media-session.enable = true;
-      
-    };
 
-  # Configure keymap in X11
-  services.xserver = {
-    layout = "gb";
-    xkbVariant = "";
-  };
-    # List services that you want to enable:
-    services.openssh.settings.PasswordAuthentication = false;
-    services.openssh.settings.KbdInteractiveAuthentication = false;
-
-    #Enable the GNOME Desktop Environment.
-    services.xserver.displayManager.gdm.enable = true;
-    services.xserver.desktopManager.gnome.enable = true;
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
-
-#   _   _    __    ____  ____  _    _    __    ____  ____ 
-#  ( )_( )  /__\  (  _ \(  _ \( \/\/ )  /__\  (  _ \( ___)
-#   ) _ (  /(__)\  )   / )(_) ))    (  /(__)\  )   / )__) 
-#  (_) (_)(__)(__)(_)\_)(____/(__/\__)(__)(__)(_)\_)(____)
-
-# BLUETOOTH CONFI HAS BEEN MOVED TO THE SERVICES.NIX
-
-#   ___  ____  ___  __  __  ____  ____  ____  _  _ 
-#  / __)( ___)/ __)(  )(  )(  _ \(_  _)(_  _)( \/ )
-#  \__ \ )__)( (__  )(__)(  )   / _)(_   )(   \  / 
-#  (___/(____)\___)(______)(_)\_)(____) (__)  (__) 
 
  security.rtkit.enable = true;
  security.sudo.extraRules = [{
@@ -160,7 +131,7 @@ in
     users."${username}" = { 
       isNormalUser = true;
       description = "${gitUsername}";
-      extraGroups = [ "networkmanager" "wheel" ];
+      extraGroups = [ "networkmanager" "wheel" "i2c" ];
       shell =pkgs.${theShell};
       ignoreShellProgramCheck = true;
       packages = with pkgs; [
@@ -176,6 +147,8 @@ in
 
   environment.variables = {
       FLAKE = "${flakeDir}";
+#      QT_QPA_PLATFORMTHEME = "kvantum";
+ #     QT_STYLE_OVERRIDE = "kvantum";
      # POLKIT_BIN = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
     };
   environment.sessionVariables = {
@@ -219,6 +192,7 @@ in
     vim
     wget
     git
+    neovim
     
   # Waybar with experimental features enabled
   (waybar.overrideAttrs (oldAttrs: {
@@ -229,42 +203,18 @@ in
   # Notification tools
   dunst        # For notifications
   libnotify    # Helps with Dunst notifications
+  blueberry    # Helps with Bluetooth configuration
   
   # Miscellaneous utilities
   swww                      # For wallpaper management
   kitty                     # Terminal emulator
   rofi-wayland              # Application launcher for Wayland
   networkmanagerapplet      # Network Manager applet
-  xcb-util-cursor           # XCB cursor utilities
+#  xcb-util-cursor           # XCB cursor utilities
   xorg.libxcb               # Xorg XCB libraries
-
-   # wf-recorder - for recording 
+  ddcutil                   # Brighness contro, works for external monitor
+  pulseaudio 
    ];
-
-#   _  _  ____  _  _    ___  ____  ____  ____  ____  _  _  ___  ___ 
-#  ( \( )(_  _)( \/ )  / __)( ___)(_  _)(_  _)(_  _)( \( )/ __)/ __)
-#   )  (  _)(_  )  (   \__ \ )__)   )(    )(   _)(_  )  (( (_-.\__ \
-#  (_)\_)(____)(_/\_)  (___/(____) (__)  (__) (____)(_)\_)\___/(___/
-
-   # Optimization settings and garbage collection automation
-   nix = {
-    settings = {
-      auto-optimise-store = true;
-      experimental-features = [ "nix-command" "flakes" ];
-     # substituters = ["https://hyprland.cachix.org"];
-     # trusted-public-keys = [
-     #   "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
-     # ];
-    };
-    gc = {
-          automatic = true;
-          dates = "weekly";
-          options = "--delete-older-than 7d";
-        };
-    };
-
-
-
   
     
   # Some programs need SUID wrappers, can be configured further or are
@@ -274,19 +224,7 @@ in
   #   enable = true;7
   #   enableSSHSupport = true;
   # };
-  #SCREEN SHARING, LINK OPENING, FILE OPENING AND MORE
- # xdg.portal = {
-  #  enable = true;
-  #  extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
- # };
 
-
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "24.05"; # Did you read the comment?
 #  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 

@@ -10,5 +10,9 @@
     ./opengl.nix
     ./packages.nix
     ./portals.nix
+    ./buildtools.nix
+    ./security.nix
+    ./hardware.nix
+    ./nixSettings.nix
   ];
 }

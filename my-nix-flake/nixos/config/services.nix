@@ -1,24 +1,15 @@
+#   ___  ____  ___  __  __  ____  ____  ____  _  _ 
+#  / __)( ___)/ __)(  )(  )(  _ \(_  _)(_  _)( \/ )
+#  \__ \ )__)( (__  )(__)(  )   / _)(_   )(   \  / 
+#  (___/(____)\___)(______)(_)\_)(____) (__)  (__) 
+
 { pkgs, config, lib, ... }:
 
 {
-#  xdg.portal = {
-#    enable = true;
-#    extraPortals = [ 
-#      #pkgs.xdg-desktop-portal-gtk
-#      pkgs.xdg-desktop-portal
-#      pkgs.xdg-desktop-portal-wlr 
-#    ];
-#    configPackages = [ 
-#      pkgs.xdg-desktop-portal-wlr 
-#      #pkgs.xdg-desktop-portal-gtk
-#      pkgs.xdg-desktop-portal-hyprland
-#      pkgs.xdg-desktop-portal
-#    ];
-#  };
 
  
-  # List services that you want to enable:
-  services.openssh.enable = true;
+ # List services that you want to enable:
+#  services.openssh.enable = true;
 #  services.fstrim.enable = true;
 #  services.vnstat.enable = true;
 #  services.gvfs.enable = true;
@@ -29,7 +20,6 @@
   services.power-profiles-daemon.enable = true;  # Not in main config
   services.gnome.gnome-keyring.enable = true;  # Not in main config
   services.gnome.gnome-remote-desktop.enable = true; # Not in main config
-  services.blueman.enable = true;
   services.pipewire = {
     enable = true;
     alsa.enable = true;
@@ -40,6 +30,30 @@
 #    jack.enable = true;
 #   wireplumber.enable = true;
   };
+  services.openssh.enable = true;
+  services.blueman.enable =true;
+  # Enable the X11 windowing system.
+  services.xserver.enable = true;
+  # Enable CUPS to print documents.
+  services.printing.enable = true;
+  services.xserver.updateDbusEnvironment = true;
+
+  # Configure keymap in X11
+  services.xserver = {
+    layout = "gb";
+    xkbVariant = "";
+  };
+    # List services that you want to enable:
+    services.openssh.settings.PasswordAuthentication = false;
+    services.openssh.settings.KbdInteractiveAuthentication = false;
+
+    #Enable the GNOME Desktop Environment.
+    services.xserver.displayManager.gdm.enable = true;
+    services.xserver.desktopManager.gnome.enable = true;
+  # Enable touchpad support (enabled default in most desktopManager).
+  # services.xserver.libinput.enable = true;
+
+  
 #  services.resolved = {
 #   enable = true;
 #    dnssec = "true";
@@ -54,24 +68,5 @@
 #    '';
 #  };
 
-  # Hardware
-  hardware.enableAllFirmware = true;   # Not in main config
-  hardware.pulseaudio.enable = false;
-  hardware.bluetooth.enable = true; # enables support for Bluetooth   # Not in main config
-  hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
-  hardware.bluetooth.settings = {
-    General = {
-      Enable = "Source,Sink,Media,Socket";
-    };
-  };
 
-
-  #Security
-  security.rtkit.enable = true;
-#  security.pam.services.hyprlock = {};
-#  security.pam.services.swaylock = {
-#    text = ''
-#      auth include login
-#   '';
-#  };
  }
