@@ -17,7 +17,9 @@
 #  services.upower.enable = true;
 #  services.thermald.enable = false;
 #  services.hypridle.enable = true;
-  services.power-profiles-daemon.enable = true;  # Not in main config
+#  services.power-profiles-daemon.enable = true;  # Using TLP now - see battery.nix
+
+  
   services.gnome.gnome-keyring.enable = true;  # Not in main config
   services.gnome.gnome-remote-desktop.enable = true; # Not in main config
   services.pipewire = {
@@ -27,16 +29,23 @@
     audio.enable = true;
     pulse.enable = true;
 #    socketActivation = true;
-#    jack.enable = true;
-#   wireplumber.enable = true;
+    jack.enable = true;
+   wireplumber.enable = true;
   };
-  services.openssh.enable = true;
+   	# Enable the OpenSSH daemon.
+	  services.openssh = {
+	    enable = true;
+	    settings.PermitRootLogin = "no";
+	    allowSFTP = true;
+	  };
   services.blueman.enable =true;
   # Enable the X11 windowing system.
   services.xserver.enable = true;
   # Enable CUPS to print documents.
   services.printing.enable = true;
   services.xserver.updateDbusEnvironment = true;
+
+  
 
   # Configure keymap in X11
   services.xserver = {

@@ -1,7 +1,9 @@
 { pkgs, config, lib, ... }:
 
 {
-
+   hardware.opengl = {
+    enable = true;
+    };
 
   hardware.enableAllFirmware = true;   # Not in main config
   hardware.pulseaudio.enable = false;

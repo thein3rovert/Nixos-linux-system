@@ -13,6 +13,11 @@
     ./buildtools.nix
     ./security.nix
     ./hardware.nix
-    ./nixSettings.nix
+   # ./nixSettings.nix -- Now moved to common folder
+    ./uxplay.nix
+    ./battery.nix
+    ./vm.nix
+    ./fonts.nix
+#    ./dev -- fix zed later
   ];
 }

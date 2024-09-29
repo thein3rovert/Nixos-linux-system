@@ -1,17 +1,25 @@
 { pkgs, ... }: {
-#  gtk = {
-#    enable = true;
+ gtk = {
+   enable = true;
 
-#    iconTheme = {
-#      name = "Reversal";
-#      package = pkgs.reversal-icon-theme;
-#    };
+   iconTheme = {
+     name = "Reversal";
+     package = pkgs.reversal-icon-theme;
+   };
 
-#    cursorTheme = {
-#      name = "Bibata-Modern-Classic";
-#      size = 12;
-#    };
-#  };
+  #  cursorTheme = {
+  #    name = "Bibata-Modern-Classic";
+  #    size = 12;
+  #  };
+
+     font = {
+       name = "JetBrainsMono Nerd Font";
+       size = 11;
+     };
+ };
+
+  # OLD THEME CHANGES - NOT SO NICE
+
 # home.sessionVariables = { GTK_THEME = "Nordic"; };
 # CHANGE CURSOR THEME IN CURSOR.NIX AND HOME SESSION IN HOME.NIX BEFORE REMOVING 
 # CHANGE CURSOR THEME IN CURSOR.NIX AND HOME SESSION IN HOME.NIX BEFORE REMOVING 
@@ -51,36 +59,40 @@
   #   };
   # };
 
-   gtk = {
-    enable = true;
-    catppuccin = {
-      enable = true;
-      gnomeShellTheme = true;
-    };
-    iconTheme = {
-      name = "Tela-circle-dark";
-      package = pkgs.tela-circle-icon-theme;
-    };
-  #  cursorTheme = {
- #     name = "Yaru";
-#      package = pkgs.yaru-theme;
-#    };
-    cursorTheme = {
-           name = "Catppuccin-Mocha-Dark-Cursors";
-           package = pkgs.catppuccin-cursors.mochaDark;
-         };
-    font = {
-      name = "Roboto";
-      size = 11;
-    };
+  # New Changes for dark themes
 
-  };
+#    gtk = {
+#     enable = true;
+#     catppuccin = {
+#       enable = true;
+#       gnomeShellTheme = true;
+#     };
+#     iconTheme = {
+#       name = "Tela-circle-dark";
+#       package = pkgs.tela-circle-icon-theme;
+#     };
+#   #  cursorTheme = {
+#  #     name = "Yaru";
+# #      package = pkgs.yaru-theme;
+# #    };
+#     cursorTheme = {
+#            name = "Catppuccin-Mocha-Dark-Cursors";
+#            package = pkgs.catppuccin-cursors.mochaDark;
+#          };
+#     font = {
+#       name = "Roboto";
+#       size = 11;
+#     };
 
-  qt = {
-    enable = true;
-    platformTheme.name = "qtct";
-    style.name = "kvantum";
-  };
+#   };
+
+
+
+#  qt = {
+#    enable = true;
+#    platformTheme.name = "qtct";
+#    style.name = "kvantum";
+#  };
 
   #  gtk = {
   #   enable = true;

@@ -2,7 +2,7 @@
 { inputs,username,config, pkgs, unstablePkgs, ... }:
 
 let 
-  inherit (import ../options.nix)
+  inherit (import ../../options.nix)
     gitUsername gitEmail;
 in {
 
@@ -10,28 +10,51 @@ in {
   # IMPORTS FOR zsh config
   imports = [
       # Importing packages modules
-    ./modules
+    ../modules
     # Imports from apps - configs for packages
-    ./apps/zsh.nix
-    ./apps/micro.nix
-    ./apps/git.nix
-    ./apps/gtk.nix
-    ./apps/portals.nix
-    ./apps/cursor.nix
-    ./apps/htop.nix
-    ./apps/java.nix
+    ../apps/zsh.nix
+    ../apps/micro.nix
+    ../apps/git.nix
+    ../apps/gtk.nix
+    ../apps/portals.nix
+    ../apps/cursor.nix
+    ../apps/htop.nix
+    ../apps/java.nix
   #./software/default.nix
-  # ./apps/vscode.nix
+  ../apps/vscode.nix
   # ./apps/xdg.nix  - dont need for now user-dirs.dirs is okay
-  #./apps/spotify.nix
+ # ./apps/spotify.nix
   # ./apps/pywal.nix
+  ../common
   ];
 
-#  catppuccin = {
-#        enable = true;
-#        accent = "mauve";
-#        flavor = "macchiato"; #mocha
-#  };
+  catppuccin = {
+      #  enable = true;
+        accent = "mauve";
+        flavor = "mocha"; #mocha
+      
+  };
+  # nixpkgs = {
+  # 		# You can add overlays here
+  # 		overlays = [
+  # 			# If you want to use overlays exported from other flakes:
+  # 			# neovim-nightly-overlay.overlays.default
+  
+  # 			# Or define it inline, for example:
+  # 			# (final: prev: {
+  # 			#	 hi = final.hello.overrideAttrs (oldAttrs: {
+  # 			#		 patches = [ ./change-hello-to-hi.patch ];
+  # 			#	 });
+  # 			# })
+  # 		];
+  # 		# Configure your nixpkgs instance
+  # 		config = {
+  # 			# Disable if you don't want unfree packages
+  # 			allowUnfree = true;
+  # 			# Workaround for https://github.com/nix-community/home-manager/issues/2942
+  # 			allowUnfreePredicate = _: true;
+  # 		};
+  # 	};
 
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
@@ -53,7 +76,6 @@ in {
   vscode
 
   # Fonts
-  nerdfonts
 
   # Audio and Volume Control
   pavucontrol  # Volume control
@@ -96,6 +118,7 @@ in {
   btop
   # Screen Recorder
    wf-recorder
+
   ];
 
 # ----------------------------------------------------------------------
@@ -147,11 +170,17 @@ in {
   home.sessionVariables = {
   #GTK_THEME = "Nordic";
     # EDITOR = "emacs";
+        #For invisible cursor
+    WLR_NO_HARDWARE_CURSORS = "1";
+    #Hint electron apps to use wayland
+    NIXOS_OZONE_WL = "1"; # cant use this now
   };
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
-  nixpkgs.config.allowUnfree = true;
+  
+  #nixpkgs.config.allowUnfree = true;
+ # nixpkgs.config.allowUnfreePredicate = _: true;
 
   ########
  # WAYBAR

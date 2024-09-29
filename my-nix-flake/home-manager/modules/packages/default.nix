@@ -3,6 +3,6 @@
 {
   imports = [
     ./misc 
-    #./cli-utilities
+    ./gui
   ];
 }

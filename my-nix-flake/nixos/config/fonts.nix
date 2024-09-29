@@ -36,7 +36,7 @@ in {
     {
       fonts = {
         fontconfig.useEmbeddedBitmaps = true;
-        packages = [ pkgs.dejavu_fonts pkgs.custom.road-rage ]
+        packages = [ pkgs.dejavu_fonts ]
           ++ (lib.optionals cfg.emoji emoji) ++ (lib.optionals cfg.nerd nerd);
       };
     };

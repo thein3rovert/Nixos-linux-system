@@ -1,7 +1,8 @@
 { ... }:
 {
   imports = [
-    ./screenrecorder.nix
+  #  ./screenrecorder.nix doesnt work well under wayland
+  ./libreoffice.nix
   ];
 }
 

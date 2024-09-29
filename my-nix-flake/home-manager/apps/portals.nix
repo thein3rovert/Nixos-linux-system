@@ -30,7 +30,9 @@
       # KDE-specific portal integration.
       # This provides similar integration for applications designed for KDE,
       # ensuring they can use the XDG portal system to interact with the desktop.
-      xdg-desktop-portal-kde
+
+      
+   #   xdg-desktop-portal-kde - dont want yet
     ];
   };
 }

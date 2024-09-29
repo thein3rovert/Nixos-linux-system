@@ -9,7 +9,7 @@ let
   inherit (import ../../options.nix) 
     theLocale theTimezone gitUsername
     theShell theLCVariables theKBDLayout flakeDir
-    httpProxy socksProxy;gf
+    httpProxy socksProxy;
 in 
 
 {
@@ -17,6 +17,7 @@ in
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ../config # Contains hardware files
+      ../common
     ];
 
 
@@ -176,15 +177,15 @@ in
   
   programs.hyprland = {
     enable = true;
+    xwayland.enable = true;
      portalPackage = pkgs.xdg-desktop-portal-wlr
       // {
         override = args: pkgs.xdg-desktop-portal-wlr.override (builtins.removeAttrs args ["hyprland"]);
       };
-   xwayland.enable = true; # I dont jabe xwayland yet so i am not using it
   };
   
   programs.firefox.enable = true;
-  nixpkgs.config.allowUnfree = true;
+ # nixpkgs.config.allowUnfree = true;
 
 
 #     _____           _                   _____           _                         

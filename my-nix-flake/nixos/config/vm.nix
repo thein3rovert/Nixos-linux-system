@@ -1,5 +1,5 @@
 { config, pkgs, ... }:
-
+### There are better way to also create vm this chris titus youtube video: https://www.youtube.com/watch?v=nJ6glhP7JI0
 {
 
   # Enable dconf (System Management Tool)
@@ -34,3 +34,4 @@
   services.spice-vdagentd.enable = true;
 
 }
+

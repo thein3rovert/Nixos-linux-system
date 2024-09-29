@@ -12,10 +12,9 @@
   boot.tmp.tmpfsSize = "25%";
   boot.kernelModules = [ "i2c-dev" ];
 
-  #  This is for OBS Virtual Cam Support - v4l2loopback setup
+#  This is for OBS Virtual Cam Support - v4l2loopback setup
 #  boot.kernelModules = [ "v4l2loopback" ];
+# For More advance config file https://www.youtube.com/watch?v=nJ6glhP7JI0 
 
-
-  
 
 }
