@@ -34,6 +34,7 @@ in {
         flavor = "mocha"; #mocha
       
   };
+
   # nixpkgs = {
   # 		# You can add overlays here
   # 		overlays = [
@@ -44,7 +45,7 @@ in {
   # 			# (final: prev: {
   # 			#	 hi = final.hello.overrideAttrs (oldAttrs: {
   # 			#		 patches = [ ./change-hello-to-hi.patch ];
-  # 			#	 });
+  # 			#	 });jsvd
   # 			# })
   # 		];
   # 		# Configure your nixpkgs instance
@@ -118,6 +119,8 @@ in {
   btop
   # Screen Recorder
    wf-recorder
+
+   cowsay
 
   ];
 
