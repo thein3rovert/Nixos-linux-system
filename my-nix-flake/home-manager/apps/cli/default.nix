@@ -1,6 +1,7 @@
 {pkgs, ...}: {
   imports = [
     ./zsh.nix
+    ./fzf.nix
   ];
 
   programs.zoxide = {
@@ -12,7 +13,9 @@
     enable = true;
     enableFishIntegration = true;
     enableBashIntegration = true;
-    extraOptions = ["-l" "--icons" "--git" "-a"];
+#    extraOptions = ["-l" "--icons" "--git" "-a"]; -- Disable icon for eza
+    extraOptions = ["-l" ]; #Icon has been disabled 
+    
   };
 
   programs.bat = {enable = true;};

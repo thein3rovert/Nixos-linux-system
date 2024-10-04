@@ -1,4 +1,5 @@
-{ config, lib, pkgs, username, ... }:
+# { config, lib, pkgs, username, ... }:
+{ config, lib, pkgs, ... }:
 
 let inherit (import ../../options.nix) printer; in
 lib.mkIf (printer == true) {
@@ -17,5 +18,6 @@ lib.mkIf (printer == true) {
     disabledDefaultBackends = ["escl"];
   };
   programs.system-config-printer.enable = true;
-  users.users.${username}.extraGroups = ["scanner" "lp"];
+#  users.users.${username}.extraGroups = ["scanner" "lp"];
+  users.users.introvert.extraGroups = ["scanner" "lp"];
 }

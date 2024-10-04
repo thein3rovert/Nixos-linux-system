@@ -3,7 +3,8 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs,username, hostname, ... }:
+#{ config, pkgs,username, hostname, ... }:
+{ config, pkgs, ... }:
 
 let 
   inherit (import ../../options.nix) 
@@ -90,7 +91,8 @@ in
 #  (_)\_)(____) (__) (__/\__)(_____)(_)\_)(_)\_)
 
   # Enable networking
-  networking.hostName = "${hostname}"; # Define your hostname
+#  networking.hostName = "${hostname}"; # Define your hostname
+  networking.hostName = "nixos"; # Define your hostname
   networking.networkmanager.enable = true;
   
   # Open ports in the firewall.
@@ -134,10 +136,19 @@ in
 
 
     users = {
-    users."${username}" = { 
+#    users."${username}" = { 
+    users."introvert" = { 
       isNormalUser = true;
       description = "${gitUsername}";
-      extraGroups = [ "networkmanager" "wheel" "i2c" ];
+      extraGroups = [ "networkmanager" "wheel" "i2c" "libvirtd"
+      "flatpak"
+      "audio"
+      "video"
+      "plugdev"
+      "input"
+      "kvm"
+      "qemu-libvirtd"
+];
       shell =pkgs.${theShell};
       ignoreShellProgramCheck = true;
       packages = with pkgs; [
@@ -172,7 +183,7 @@ in
 #   )___/ )   / )(_)(( (_-. )   / /(__)\  )    ( \__ \
 #  (__)  (_)\_)(_____)\___/(_)\_)(__)(__)(_/\/\_)(___/
   #SHELL CONFIGURATION
-  programs.zsh.enable = true;
+#  programs.zsh.enable = true;
   environment.shells = with pkgs; [ zsh ];
   
   programs.hyprland = {
@@ -196,7 +207,6 @@ in
 #   |_____/ \__, |___/\__\___|_| |_| |_| |_|   \__,_|\___|_|\_\__,_|\__, |\___||___/
 #            __/ |                                                   __/ |          
 #           |___/                                                   |___/           
-
   environment.systemPackages = with pkgs; [
     vim
     wget

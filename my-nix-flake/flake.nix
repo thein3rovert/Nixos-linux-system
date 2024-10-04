@@ -34,7 +34,8 @@
     ...
   } @ inputs: let
     inherit (self) outputs;
-    inherit (import ./options.nix) username hostname;
+ #   inherit (import ./options.nix) username hostname;
+    inherit (import ./options.nix);
     systems = [
       "aarch64-linux"
       "i686-linux"
@@ -48,24 +49,26 @@
       forAllSystems (system: import ./pkgs nixpkgs.legacyPackages.${system});
     overlays = import ./overlays {inherit inputs;};
     nixosConfigurations = {
-       "${hostname}" = nixpkgs.lib.nixosSystem {
+       "nixos" = nixpkgs.lib.nixosSystem {
         # Import the username and hostname from options after changing my flake config
-        specialArgs = {inherit inputs outputs username hostname;};
+#        specialArgs = {inherit inputs outputs username hostna;};
+        specialArgs = {inherit inputs outputs;};
         modules = [
          # ./hosts/m3-kratos
           catppuccin.nixosModules.catppuccin
          # stylix.nixosModules.stylix
-          ./nixos/configuration.nix
+          ./nixos/introvert/configuration.nix
         
         ];
       };
     };
     homeConfigurations = {
-     "${username}" = home-manager.lib.homeManagerConfiguration {
+     "introvert" = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages."x86_64-linux";
-        extraSpecialArgs = {inherit inputs outputs username hostname;};
+#        extraSpecialArgs = {inherit inputs outputs username hostname;};
+        extraSpecialArgs = {inherit inputs outputs;};
         modules = [#./home/m3tam3re/m3tam3re.nix
-                   ./home-manager/home.nix
+                   ./home-manager/introvert/home.nix
                    ./home-manager/modules
                    catppuccin.homeManagerModules.catppuccin
         ];

@@ -1,10 +1,20 @@
 # Common configuration for all hosts
 {
+  pkgs,
   lib,
   inputs,
   outputs,
   ...
 }: {
+    imports = [
+    inputs.home-manager.nixosModules.home-manager
+  ];
+  # Enable user packages and make input and out put of flake available
+  home-manager = {
+    useUserPackages = true;
+    extraSpecialArgs = {inherit inputs outputs;};
+  };
+
   nixpkgs = {
     # You can add overlays here
     overlays = [

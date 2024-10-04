@@ -27,7 +27,7 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     audio.enable = true;
-    pulse.enable = true;
+    pulse.enable = true; 
 #    socketActivation = true;
     jack.enable = true;
    wireplumber.enable = true;
@@ -37,7 +37,12 @@
 	    enable = true;
 	    settings.PermitRootLogin = "no";
 	    allowSFTP = true;
-	  };
+	    };
+	   # List services that you want to enable:
+    services.openssh.settings.PasswordAuthentication = true;
+    services.openssh.settings.KbdInteractiveAuthentication = false;
+    services.openssh.settings.X11Forwarding = true;
+    services.openssh.settings.X11DisplayOffset = 10;
   services.blueman.enable =true;
   # Enable the X11 windowing system.
   services.xserver.enable = true;
@@ -52,9 +57,7 @@
     layout = "gb";
     xkbVariant = "";
   };
-    # List services that you want to enable:
-    services.openssh.settings.PasswordAuthentication = false;
-    services.openssh.settings.KbdInteractiveAuthentication = false;
+   
 
     #Enable the GNOME Desktop Environment.
     services.xserver.displayManager.gdm.enable = true;

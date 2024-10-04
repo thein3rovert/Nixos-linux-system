@@ -1,5 +1,6 @@
 
-{ inputs,username,config, pkgs, unstablePkgs, ... }:
+#{ inputs,username,config, pkgs, unstablePkgs, ... }:
+{ inputs,config, pkgs, unstablePkgs, ... }:
 
 let 
   inherit (import ../../options.nix)
@@ -28,12 +29,12 @@ in {
   ../common
   ];
 
-  catppuccin = {
-      #  enable = true;
-        accent = "mauve";
-        flavor = "mocha"; #mocha
+  # catppuccin = {
+  #      enable = true;
+  #       accent = "mauve";
+  #       flavor = "mocha"; #mocha
       
-  };
+  # };
 
   # nixpkgs = {
   # 		# You can add overlays here
@@ -59,8 +60,10 @@ in {
 
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
-  home.username = "${username}";
-  home.homeDirectory = "/home/${username}";
+#  home.username = "${username}";
+  home.username = "introvert";
+  home.homeDirectory = "/home/introvert";
+#  home.homeDirectory =  lib.mkDefault "/home/${config.home.username}";
   home.stateVersion = "24.11";
 
 
