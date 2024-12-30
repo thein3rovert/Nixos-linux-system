@@ -1,82 +1,87 @@
-
- # Edit this configuration file to define what should be installed on
+# Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 #{ config, pkgs,username, hostname, ... }:
-{ config, pkgs,inputs, ... }:
+{
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
 
-let 
-  inherit (import ../../options.nix) 
-    theLocale theTimezone gitUsername
-    theShell theLCVariables theKBDLayout flakeDir
-    httpProxy socksProxy;
-in 
+let
+  inherit (import ../../options.nix)
+    theLocale
+    theTimezone
+    gitUsername
+    theShell
+    theLCVariables
+    theKBDLayout
+    flakeDir
+    httpProxy
+    socksProxy
+    ;
+in
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ../config # Contains hardware files
-    ];
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    ../config # Contains hardware files
+  ];
 
-
-     services.udev.packages = [
-    (pkgs.runCommand "custom-udev-rules" {
-      buildInputs = [ pkgs.coreutils ];
-    } ''
+  services.udev.packages = [
+    (pkgs.runCommand "custom-udev-rules" { buildInputs = [ pkgs.coreutils ]; } ''
       mkdir -p $out/lib/udev/rules.d
       cp ${pkgs.ddcutil}/share/ddcutil/data/60-ddcutil-i2c.rules $out/lib/udev/rules.d/
     '')
   ];
 
   services.udev.extraRules = ''
-      KERNEL=="i2c-[0-9]*", GROUP="i2c", MODE="0660"
-    '';
+    KERNEL=="i2c-[0-9]*", GROUP="i2c", MODE="0660"
+  '';
 
-
-#   ____  _____  _____  ____ 
-#  (  _ \(  _  )(  _  )(_  _)
-#   ) _ < )(_)(  )(_)(   )(   
-#  (____/(_____)(_____) (__) 
-#
-
+  #   ____  _____  _____  ____ 
+  #  (  _ \(  _  )(  _  )(_  _)
+  #   ) _ < )(_)(  )(_)(   )(   
+  #  (____/(_____)(_____) (__) 
+  #
 
   ## For updating my driver
-  boot.extraModulePackages = with config.boot.kernelPackages; [
-    rtw88
-  ];
+  boot.extraModulePackages = with config.boot.kernelPackages; [ rtw88 ];
   # Disable power managemnet
-   boot.kernelParams = [ "rtw_8821ce.disable_msi=1" "rtw_8821ce.disable_aspm=1" ];
+  boot.kernelParams = [
+    "rtw_8821ce.disable_msi=1"
+    "rtw_8821ce.disable_aspm=1"
+  ];
 
-   users.users.introvert = {
+  users.users.introvert = {
     # Set one of these to true
-    isNormalUser = true;  # or isSystemUser = true;
+    isNormalUser = true; # or isSystemUser = true;
 
     # Create a group for the user
     group = "introvert";
   };
 
-  users.groups.introvert = {};
+  users.groups.introvert = { };
 
+  #   __  __  ____  ___   ___ 
+  #  (  \/  )(_  _)/ __) / __)
+  #   )    (  _)(_ \__ \( (__ 
+  #  (_/\/\_)(____)(___/ \___)
 
+  #qt.enable = true;
+  #qt.style.name = "gtk2";
 
-#   __  __  ____  ___   ___ 
-#  (  \/  )(_  _)/ __) / __)
-#   )    (  _)(_ \__ \( (__ 
-#  (_/\/\_)(____)(___/ \___)
-
-#qt.enable = true;
-#qt.style.name = "gtk2";
-
-    catppuccin = {
-        enable = true;
-        flavor = "mocha";
-        accent = "mauve";
-    }; 
+  catppuccin = {
+    enable = true;
+    flavor = "mocha";
+    accent = "mauve";
+  };
 
   # Select internationalisation properties.
-    i18n.defaultLocale = "${theLocale}";
+  i18n.defaultLocale = "${theLocale}";
   i18n.extraLocaleSettings = {
     LC_ADDRESS = "${theLCVariables}";
     LC_IDENTIFICATION = "${theLCVariables}";
@@ -90,105 +95,105 @@ in
   };
   console.keyMap = "${theKBDLayout}"; # Currently us but initially uk
 
-    # Set your time zone.
+  # Set your time zone.
   time.timeZone = "${theTimezone}";
 
-
-
-
-#   _  _  ____  ____  _    _  _____  ____  _  _ 
-#  ( \( )( ___)(_  _)( \/\/ )(  _  )(  _ \( )/ )
-#   )  (  )__)   )(   )    (  )(_)(  )   / )  ( 
-#  (_)\_)(____) (__) (__/\__)(_____)(_)\_)(_)\_)
+  #   _  _  ____  ____  _    _  _____  ____  _  _ 
+  #  ( \( )( ___)(_  _)( \/\/ )(  _  )(  _ \( )/ )
+  #   )  (  )__)   )(   )    (  )(_)(  )   / )  ( 
+  #  (_)\_)(____) (__) (__/\__)(_____)(_)\_)(_)\_)
 
   # Enable networking
-#  networking.hostName = "${hostname}"; # Define your hostname
+  #  networking.hostName = "${hostname}"; # Define your hostname
   networking.hostName = "nixos"; # Define your hostname
   networking.networkmanager.enable = true;
 
- virtualisation.docker.enable = true;
-# virtualisation.docker.rootless.enable = true;
+  virtualisation.docker.enable = true;
+  # virtualisation.docker.rootless.enable = true;
   virtualisation.docker.rootless = {
     enable = true;
     setSocketVariable = true;
   };
-  
+
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
 
- #  networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  #  networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
-#  networking.proxy.default = "${socksProxy}";
-#  networking.proxy.allProxy = "${socksProxy}";
-#  networking.proxy.rsyncProxy = "${socksProxy}";
-#  networking.proxy.httpProxy = "${httpProxy}";
-#  networking.proxy.httpsProxy = "${httpProxy}";
-#  networking.proxy.ftpProxy = "${httpProxy}";
+  #  networking.proxy.default = "${socksProxy}";
+  #  networking.proxy.allProxy = "${socksProxy}";
+  #  networking.proxy.rsyncProxy = "${socksProxy}";
+  #  networking.proxy.httpProxy = "${httpProxy}";
+  #  networking.proxy.httpsProxy = "${httpProxy}";
+  #  networking.proxy.ftpProxy = "${httpProxy}";
 
-# Configuring NETWORK SETUP
-#networking.firewall.enable = true;
-#networking.forwarding = true;
-# boot.kernel.sysctl."net.inet.ip_forward" = 1;
+  # Configuring NETWORK SETUP
+  #networking.firewall.enable = true;
+  #networking.forwarding = true;
+  # boot.kernel.sysctl."net.inet.ip_forward" = 1;
 
+  security.rtkit.enable = true;
+  security.sudo.extraRules = [
+    {
+      users = [ "introvert" ];
+      commands = [
+        {
+          command = "ALL";
+          options = [ "NOPASSWD" ];
+        }
+      ];
+    }
+  ];
 
+  #   __  __  ___  ____  ____  ___ 
+  #  (  )(  )/ __)( ___)(  _ \/ __)
+  #   )(__)( \__ \ )__)  )   /\__ \
+  #  (______)(___/(____)(_)\_)(___/
 
- security.rtkit.enable = true;
- security.sudo.extraRules = [{
-   users = ["introvert"];
-   commands = [{ command = "ALL";
-     options = ["NOPASSWD"];
-    }];
-  }];
+  ## This user config has been moved to the "common/user" folder
+  #    users = {
+  #    users."${username}" = { 
+  #    users."introvert" = { 
+  #      isNormalUser = true;
+  #      description = "${gitUsername}";
+  #      extraGroups = [ "networkmanager" "wheel" "i2c" "libvirtd"
+  #      "flatpak"
+  #      "audio"
+  #      "video"
+  #      "plugdev"
+  #      "input"
+  #      "kvm"
+  #      "qemu-libvirtd"
+  #];
+  #      shell =pkgs.${theShell};
+  #      ignoreShellProgramCheck = true;
+  #      packages = with pkgs; [
+  #    #  thunderbird
+  #      ];
+  #   };
+  #  };
 
-#   __  __  ___  ____  ____  ___ 
-#  (  )(  )/ __)( ___)(  _ \/ __)
-#   )(__)( \__ \ )__)  )   /\__ \
-#  (______)(___/(____)(_)\_)(___/
-
-## This user config has been moved to the "common/user" folder
-#    users = {
-#    users."${username}" = { 
-#    users."introvert" = { 
-#      isNormalUser = true;
-#      description = "${gitUsername}";
-#      extraGroups = [ "networkmanager" "wheel" "i2c" "libvirtd"
-#      "flatpak"
-#      "audio"
-#      "video"
-#      "plugdev"
-#      "input"
-#      "kvm"
-#      "qemu-libvirtd"
-#];
-#      shell =pkgs.${theShell};
-#      ignoreShellProgramCheck = true;
-#      packages = with pkgs; [
-#    #  thunderbird
-#      ];
-#   };
-#  };
-
-#   ____  _  _  _  _ 
-#  ( ___)( \( )( \/ )
-#   )__)  )  (  \  / 
-#  (____)(_)\_)  \/  
+  #   ____  _  _  _  _ 
+  #  ( ___)( \( )( \/ )
+  #   )__)  )  (  \  / 
+  #  (____)(_)\_)  \/  
 
   environment.variables = {
-      FLAKE = "${flakeDir}";
-       QT_QPA_PLATFORMTHEME = "qt5ct";   # For Qt5 applications
-     #  QT_QPA_PLATFORMTHEME = "qt6ct";   # For Qt6 applications
-    
-#      QT_QPA_PLATFORMTHEME = "kvantum";
- #     QT_STYLE_OVERRIDE = "kvantum";
-     # POLKIT_BIN = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
-    };
+    FLAKE = "${flakeDir}";
+    QT_QPA_PLATFORMTHEME = "qt5ct"; # For Qt5 applications
+    #  QT_QPA_PLATFORMTHEME = "qt6ct";   # For Qt6 applications
+
+    #      QT_QPA_PLATFORMTHEME = "kvantum";
+    #     QT_STYLE_OVERRIDE = "kvantum";
+    # POLKIT_BIN = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
+  };
   environment.sessionVariables = {
     #For invisible cursor
     WLR_NO_HARDWARE_CURSORS = "1";
@@ -196,88 +201,85 @@ in
     NIXOS_OZONE_WL = "1"; # cant use this now
   };
 
-#   ____  ____  _____  ___  ____    __    __  __  ___ 
-#  (  _ \(  _ \(  _  )/ __)(  _ \  /__\  (  \/  )/ __)
-#   )___/ )   / )(_)(( (_-. )   / /(__)\  )    ( \__ \
-#  (__)  (_)\_)(_____)\___/(_)\_)(__)(__)(_/\/\_)(___/
+  #   ____  ____  _____  ___  ____    __    __  __  ___ 
+  #  (  _ \(  _ \(  _  )/ __)(  _ \  /__\  (  \/  )/ __)
+  #   )___/ )   / )(_)(( (_-. )   / /(__)\  )    ( \__ \
+  #  (__)  (_)\_)(_____)\___/(_)\_)(__)(__)(_/\/\_)(___/
   #SHELL CONFIGURATION
-#  programs.zsh.enable = true;
+  #  programs.zsh.enable = true;
   environment.shells = with pkgs; [ zsh ];
-  
+
   programs.hyprland = {
     enable = true;
     xwayland.enable = true;
-     portalPackage = pkgs.xdg-desktop-portal-wlr
-      // {
-        override = args: pkgs.xdg-desktop-portal-wlr.override (builtins.removeAttrs args ["hyprland"]);
-      };
+    portalPackage = pkgs.xdg-desktop-portal-wlr // {
+      override = args: pkgs.xdg-desktop-portal-wlr.override (builtins.removeAttrs args [ "hyprland" ]);
+    };
   };
-  
+
   programs.firefox.enable = true;
   programs.nix-ld.enable = true;
-  programs.nix-ld.libraries = [];
- # nixpkgs.config.allowUnfree = true;
+  programs.nix-ld.libraries = [ ];
+  # nixpkgs.config.allowUnfree = true;
 
-
-#     _____           _                   _____           _                         
-#    / ____|         | |                 |  __ \         | |                        
-#   | (___  _   _ ___| |_ ___ _ __ ___   | |__) |_ _  ___| | ____ _  __ _  ___  ___ 
-#    \___ \| | | / __| __/ _ \ '_ ` _ \  |  ___/ _` |/ __| |/ / _` |/ _` |/ _ \/ __|
-#    ____) | |_| \__ \ ||  __/ | | | | | | |  | (_| | (__|   < (_| | (_| |  __/\__ \
-#   |_____/ \__, |___/\__\___|_| |_| |_| |_|   \__,_|\___|_|\_\__,_|\__, |\___||___/
-#            __/ |                                                   __/ |          
-#           |___/                                                   |___/           
+  #     _____           _                   _____           _                         
+  #    / ____|         | |                 |  __ \         | |                        
+  #   | (___  _   _ ___| |_ ___ _ __ ___   | |__) |_ _  ___| | ____ _  __ _  ___  ___ 
+  #    \___ \| | | / __| __/ _ \ '_ ` _ \  |  ___/ _` |/ __| |/ / _` |/ _` |/ _ \/ __|
+  #    ____) | |_| \__ \ ||  __/ | | | | | | |  | (_| | (__|   < (_| | (_| |  __/\__ \
+  #   |_____/ \__, |___/\__\___|_| |_| |_| |_|   \__,_|\___|_|\_\__,_|\__, |\___||___/
+  #            __/ |                                                   __/ |          
+  #           |___/                                                   |___/           
   environment.systemPackages = with pkgs; [
     vim
     wget
     git
     neovim
-    
-  # Waybar with experimental features enabled
-  (waybar.overrideAttrs (oldAttrs: {
-    mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true"];
-  }))
 
+    # Waybar with experimental features enabled
+    (waybar.overrideAttrs (oldAttrs: {
+      mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
+    }))
 
-  # Notification tools
-  dunst        # For notifications
-  libnotify    # Helps with Dunst notifications
-  blueberry    # Helps with Bluetooth configuration
-  
-  # Miscellaneous utilities
-  swww                      # For wallpaper management
-  kitty                     # Terminal emulator
-  rofi-wayland              # Application launcher for Wayland
-  networkmanagerapplet      # Network Manager applet
-#  xcb-util-cursor           # XCB cursor utilities
-  xorg.libxcb               # Xorg XCB libraries
-  ddcutil                   # Brighness contro, works for external monitor
-  pulseaudio 
-#-------------------------
-  xdg-user-dirs
-  xdg-utils
-  # Desktop Theming
-  qt5ct
-  qt6ct
-  qt6.qtwayland
-  qt6Packages.qtstyleplugin-kvantum #kvantum
-  libsForQt5.qtstyleplugin-kvantum
-  gtk-engine-murrine
+    # Notification tools
+    dunst # For notifications
+    libnotify # Helps with Dunst notifications
+    blueberry # Helps with Bluetooth configuration
 
-  anki-bin
-  spacedrive
-      nix-ld
+    # Miscellaneous utilities
+    swww # For wallpaper management
+    kitty # Terminal emulator
+    rofi-wayland # Application launcher for Wayland
+    networkmanagerapplet # Network Manager applet
+    #  xcb-util-cursor           # XCB cursor utilities
+    xorg.libxcb # Xorg XCB libraries
+    ddcutil # Brighness contro, works for external monitor
+    pulseaudio
+    #-------------------------
+    xdg-user-dirs
+    xdg-utils
+    # Desktop Theming
+    qt5ct
+    qt6ct
+    qt6.qtwayland
+    qt6Packages.qtstyleplugin-kvantum # kvantum
+    libsForQt5.qtstyleplugin-kvantum
+    gtk-engine-murrine
 
-  sshfs
-  tokyonight-gtk-theme
+    anki-bin
+    spacedrive
+    nix-ld
 
-  inputs.zen-browser.packages."${system}".default
-  inputs.zen-browser.packages."${system}".specific
-  inputs.zen-browser.packages."${system}".generic
+    sshfs
+    tokyonight-gtk-theme
 
-   ];
-   
-fonts = {
+    inputs.zen-browser.packages."${system}".default
+    inputs.zen-browser.packages."${system}".specific
+    inputs.zen-browser.packages."${system}".generic
+
+  ];
+
+  fonts = {
     fontDir.enable = true;
     enableGhostscriptFonts = true;
     packages = with pkgs; [
@@ -289,12 +291,16 @@ fonts = {
       monaspace
       noto-fonts
       ubuntu_font_family
-      (nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" "JetBrainsMono" ]; })
+      (nerdfonts.override {
+        fonts = [
+          "FiraCode"
+          "DroidSansMono"
+          "JetBrainsMono"
+        ];
+      })
     ];
   };
 
-   
-    
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
@@ -304,10 +310,8 @@ fonts = {
   # };
   swapDevices = [ { device = "/swapfile"; } ];
   system.stateVersion = "24.05"; # Did you read the comment?
-#  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  #  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
- #  blueman.enable = true;
- #  dbus.enable = true;
-    }
-
-
+  #  blueman.enable = true;
+  #  dbus.enable = true;
+}

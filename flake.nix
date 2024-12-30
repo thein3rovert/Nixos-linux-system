@@ -37,11 +37,32 @@
     ...
   } @ inputs: let
     inherit (self) outputs;
- #   inheri
+     #   inherit (import ./options.nix) username hostname;
+    inherit (import ./options.nix);
+    systems = [
+      "aarch64-linux"
+      "i686-linux"
+      "x86_64-linux"
+      "aarch64-darwin"
+      "x86_64-darwin"
+    ];
+    forAllSystems = nixpkgs.lib.genAttrs systems;
+  in {
+    packages =
+      forAllSystems (system: import ./pkgs nixpkgs.legacyPackages.${system});
+    overlays = import ./overlays {inherit inputs;};
+    nixosConfigurations = {
+       "nixos" = nixpkgs.lib.nixosSystem {
+        # Import the username and hostname from options after changing my flake config
+#        specialArgs = {inherit inputs outputs username hostna;};
+        specialArgs = {inherit inputs outputs nix-colors;};
+        modules = [
+        {
           environment.systemPackages = [
             ghostty.packages.x86_64-linux.default
           ];
         }
+        
          # ./hosts/m3-kratos
           catppuccin.nixosModules.catppuccin
          # stylix.nixosModules.stylix

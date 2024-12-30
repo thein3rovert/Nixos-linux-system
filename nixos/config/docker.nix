@@ -3,12 +3,12 @@
 {
   virtualisation.docker = {
     enable = true;
-#    storageDriver = "overlay2";  # Optional, customize as needed
-#    extraOptions = "--experimental";  # Optional, customize as needed
-#    defaultBridge = {
- #     enable = true;
-  #    subnet = "172.18.0.0/16";
-#    };
+    #    storageDriver = "overlay2";  # Optional, customize as needed
+    #    extraOptions = "--experimental";  # Optional, customize as needed
+    #    defaultBridge = {
+    #     enable = true;
+    #    subnet = "172.18.0.0/16";
+    #    };
   };
 
   virtualisation.docker.rootless = {

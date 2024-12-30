@@ -1,7 +1,7 @@
 { pkgs, ... }: {
  home.pointerCursor = {
    name = "Bibata-Modern-Ice";
-   size = 10;
+   size = 8;
   package = pkgs.bibata-cursors;
  };
   # home.pointerCursor = {
