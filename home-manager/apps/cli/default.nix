@@ -47,5 +47,6 @@
     prettierd
     unzip
     luajitPackages.jsregexp
+    slides
   ];
 }
