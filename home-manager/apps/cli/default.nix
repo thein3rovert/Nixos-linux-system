@@ -48,5 +48,6 @@
     unzip
     luajitPackages.jsregexp
     slides
+    just
   ];
 }

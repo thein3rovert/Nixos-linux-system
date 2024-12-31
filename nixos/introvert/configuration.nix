@@ -277,6 +277,8 @@ in
     inputs.zen-browser.packages."${system}".specific
     inputs.zen-browser.packages."${system}".generic
 
+##  Required Dependencies for slides
+    plantuml
   ];
 
   fonts = {
