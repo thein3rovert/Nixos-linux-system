@@ -267,7 +267,6 @@ in
     gtk-engine-murrine
 
     anki-bin
-    spacedrive
     nix-ld
 
     sshfs
@@ -276,7 +275,8 @@ in
     inputs.zen-browser.packages."${system}".default
     inputs.zen-browser.packages."${system}".specific
     inputs.zen-browser.packages."${system}".generic
-
+    
+    lazydocker
 ##  Required Dependencies for slides
     plantuml
   ];
@@ -312,7 +312,6 @@ in
   # };
   swapDevices = [ { device = "/swapfile"; } ];
   system.stateVersion = "24.05"; # Did you read the comment?
-  #  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   #  blueman.enable = true;
   #  dbus.enable = true;

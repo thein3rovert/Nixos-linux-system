@@ -6,29 +6,13 @@ let
   inherit (import ../../options.nix)
     gitUsername gitEmail;
 in {
-
-
   # IMPORTS FOR zsh config
   imports = [
       # Importing packages modules
     ../modules
      inputs.nix-colors.homeManagerModule
     # Imports from apps - configs for packages
-    #../apps/zsh.nix
     ../apps
-  #   ../apps/micro.nix
-  #   ../apps/git.nix
-  #   ../apps/gtk.nix
-  #   ../apps/portals.nix
-  #   ../apps/cursor.nix
-  #   ../apps/htop.nix
-  #   ../apps/java.nix
-  # #./software/default.nix
-  # ../apps/vscode.nix
-  # ./apps/xdg.nix  - dont need for now user-d:dirs is okay
- # ./apps/spotify.nix
-  # ./apps/pywal.nix
- # ../common
   ];
 
   colorScheme = inputs.nix-colors.colorSchemes.tokyo-night-terminal-storm;
@@ -186,6 +170,7 @@ in {
   jetbrains.idea-ultimate
   docker-compose
   calcurse
+  textsnatcher
 
   ];
 

@@ -56,8 +56,13 @@
     };
     optimise.automatic = true;
     registry =
+    # Use `lib.mapAttrs` to transform the attributes of the `inputs` set.
+    # Each attribute (`flake`) is wrapped in a derivation where it is inherited as is.
       (lib.mapAttrs (_: flake: {inherit flake;}))
       ((lib.filterAttrs (_: lib.isType "flake")) inputs);
-    nixPath = ["/etc/nix/path"];
+    nixPath = [
+  # Specify additional paths for the Nix search path.
+  # This includes the default system-wide Nix configuration path.
+    "/etc/nix/path"];
   };
 }
