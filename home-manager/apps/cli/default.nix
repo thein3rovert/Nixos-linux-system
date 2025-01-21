@@ -49,5 +49,9 @@
     luajitPackages.jsregexp
     slides
     just
+
+#   Addtional Cli tools
+#    rainfrog --cant find on nixos packages 
+#    lazydocker #delete from configuration.nix
   ];
 }
