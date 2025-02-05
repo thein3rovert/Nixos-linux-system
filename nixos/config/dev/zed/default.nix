@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 {
   imports = [
-    ./zed.nix
+    #./zed.nix
   ];
 }

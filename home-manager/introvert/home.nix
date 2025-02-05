@@ -140,6 +140,7 @@ in {
 
   # Note-taking and Productivity
   obsidian
+  anytype
 
   # Appearance and Shell Customization
   oh-my-posh
@@ -243,4 +244,5 @@ in {
   programs.waybar = {
     enable = true;
   };
+
 }

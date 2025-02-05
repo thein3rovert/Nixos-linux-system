@@ -1,5 +1,5 @@
 {
   imports = [
-    ./zed
+    #./zed
   ];
 }

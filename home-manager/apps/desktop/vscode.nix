@@ -40,8 +40,8 @@
       "material-icon-theme.hidesExplorerArrows" = true; # Hide arrows in explorer
       "workbench.tree.renderIndentGuides" = "none"; # Disable indent guides in the tree view
       "workbench.sideBar.location" = "right"; # Move sidebar to the right
-      #"workbench.activityBar.visible" = false; # Hide activity bar
-      "workbench.activityBar.location" = "hidden";
+      "workbench.activityBar.visible" = true; # Hide activity bar
+     # "workbench.activityBar.location" = "hidden";
       "workbench.statusBar.visible" = false; # Hide status bar
       "workbench.editor.showTabs" = "single"; #false; # Disable editor tabs
       "workbench.layoutControl.enabled" = false; # Disable layout control

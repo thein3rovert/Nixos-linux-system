@@ -9,4 +9,18 @@
 #   '';
 #  };
 
+  # Ensure the group exists
+  users.groups.wireshark = { };
+
+  security.wrappers.dumpcap = {
+    owner = "root";
+    group = "wireshark";
+    capabilities = "cap_net_raw,cap_net_admin+eip";
+    source = "${pkgs.wireshark}/bin/dumpcap";
+  };
+
+  users.users.introvert.extraGroups = [ "wireshark" ];
+
+
+
 }
