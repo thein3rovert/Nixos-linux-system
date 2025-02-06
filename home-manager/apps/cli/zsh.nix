@@ -37,6 +37,14 @@ in {
         ls = "eza";
         grep = "rg";
         ps = "procs";
+        # Git related aliases
+        ga = "git add";
+        gc = "git commit -m";
+        gs = "git status";
+        gl = "git log --graph --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%an%C(reset)%C(bold yellow)%d%C(reset) %C(dim white)- %s%C(reset)' --all"; # check medium for better command line approach
+        gp = "git push origin";
+        gr = "git reset --soft HEAD~1";
+
       };
     };
     
