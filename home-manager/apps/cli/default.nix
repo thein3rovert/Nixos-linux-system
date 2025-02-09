@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   imports = [
     ./zsh.nix
     ./fzf.nix
@@ -15,12 +16,14 @@
     enable = true;
     enableFishIntegration = true;
     enableBashIntegration = true;
-#    extraOptions = ["-l" "--icons" "--git" "-a"]; -- Disable icon for eza
-    extraOptions = ["-l" ]; #Icon has been disabled 
-    
+    #    extraOptions = ["-l" "--icons" "--git" "-a"]; -- Disable icon for eza
+    extraOptions = [ "-l" ]; # Icon has been disabled
+
   };
 
-  programs.bat = {enable = true;};
+  programs.bat = {
+    enable = true;
+  };
 
   home.packages = with pkgs; [
     coreutils
@@ -33,10 +36,10 @@
     tldr
     zip
 
-#   Music
+    #   Music
     cmus
 
-##  Important files for neovim config
+    ##  Important files for neovim config
     lua-language-server
     lua51Packages.lua
     gccgo14
@@ -49,9 +52,11 @@
     luajitPackages.jsregexp
     slides
     just
+    cargo
+    nil # Used for my lua-language-server
 
-#   Addtional Cli tools
-#    rainfrog --cant find on nixos packages 
-#    lazydocker #delete from configuration.nix
+    #   Addtional Cli tools
+    #    rainfrog --cant find on nixos packages 
+    #    lazydocker #delete from configuration.nix
   ];
 }
