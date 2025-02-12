@@ -24,7 +24,7 @@ in
         bindkey '^f' autosuggest-accept
         # OH-MY-POSH
         if [ "$TERM_PROGRAM" != "Apple_Terminal" ]; then
-          eval "$(oh-my-posh init zsh --config ~/.poshthemes/tokyonight_storm.omp.json )"
+          eval "$(oh-my-posh init zsh --config ~/.poshthemes/catppuccin_macchiato.omp.json )"
         fi
 
         export NIX_PATH="nixpkgs=channel:nixos-unstable"
@@ -46,8 +46,8 @@ in
 
         # Eza
         l = "eza -l --icons --git -a";
-        lt = "eza --tree --level=2 --long --icons --git";
         ltree = "eza --tree --level=2 --icons --git";
+        lt = "eza --tree --level=2 --long --icons --git";
         ls = "eza";
 
         # Processes and Memory
@@ -68,6 +68,10 @@ in
         gpu = "git pull origin";
 
         cat = "bat";
+
+        # History Search
+        h = "history";
+        hg = "history | grep ";
 
       };
     };
