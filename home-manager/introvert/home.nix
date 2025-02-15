@@ -10,14 +10,6 @@
 let
   inherit (import ../../options.nix) gitUsername gitEmail;
 
-  # Import newer packages from unstable
-  unstableTarball = fetchTarball {
-    url = "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz";
-    sha256 = "0ms5nbr2vmvhbr531bxvyi10nz9iwh5cry12pl416gyvf0mxixpv";
-  };
-
-  unstable = import unstableTarball { inherit (pkgs) system; };
-
 in
 {
   # IMPORTS FOR zsh config
@@ -30,7 +22,6 @@ in
   ];
 
   # Method 1: Configure nixpkgs
-  nixpkgs.overlays = [ (final: prev: { vscode = unstable.vscode; }) ];
 
   colorScheme = inputs.nix-colors.colorSchemes.tokyo-night-terminal-storm;
 
