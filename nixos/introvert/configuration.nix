@@ -273,11 +273,11 @@ in
     tokyonight-gtk-theme
 
     inputs.zen-browser.packages."${system}".default
-    inputs.zen-browser.packages."${system}".specific
-    inputs.zen-browser.packages."${system}".generic
-    
+    #inputs.zen-browser.packages."${system}".specific
+    #inputs.zen-browser.packages."${system}".generic
+
     lazydocker
-##  Required Dependencies for slides
+    ##  Required Dependencies for slides
     plantuml
   ];
 
