@@ -1,23 +1,40 @@
-
 #{ inputs,username,config, pkgs, unstablePkgs, ... }:
-{ inputs,config, pkgs, unstablePkgs, ... }:
+{
+  inputs,
+  config,
+  pkgs,
+  unstablePkgs,
+  ...
+}:
 
-let 
-  inherit (import ../../options.nix)
-    gitUsername gitEmail;
-in {
+let
+  inherit (import ../../options.nix) gitUsername gitEmail;
+
+  # Import newer packages from unstable
+  unstableTarball = fetchTarball {
+    url = "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz";
+    sha256 = "0ms5nbr2vmvhbr531bxvyi10nz9iwh5cry12pl416gyvf0mxixpv";
+  };
+
+  unstable = import unstableTarball { inherit (pkgs) system; };
+
+in
+{
   # IMPORTS FOR zsh config
   imports = [
-      # Importing packages modules
+    # Importing packages modules
     ../modules
-     inputs.nix-colors.homeManagerModule
+    inputs.nix-colors.homeManagerModule
     # Imports from apps - configs for packages
     ../apps
   ];
 
+  # Method 1: Configure nixpkgs
+  nixpkgs.overlays = [ (final: prev: { vscode = unstable.vscode; }) ];
+
   colorScheme = inputs.nix-colors.colorSchemes.tokyo-night-terminal-storm;
 
-   programs = {
+  programs = {
     kitty = {
       enable = true;
       settings = {
@@ -49,7 +66,6 @@ in {
 
         # ...
 
-        
         # add some nice default configs
         repaint_delay = "60";
         sync_to_monitor = "yes";
@@ -70,127 +86,94 @@ in {
 
       };
     };
-   };
-
-  # catppuccin = {
-  #      enable = true;
-  #       accent = "mauve";
-  #       flavor = "mocha"; #mocha
-      
-  # };
-
-  # nixpkgs = {
-  # 		# You can add overlays here
-  # 		overlays = [
-  # 			# If you want to use overlays exported from other flakes:
-  # 			# neovim-nightly-overlay.overlays.default
-  
-  # 			# Or define it inline, for example:
-  # 			# (final: prev: {
-  # 			#	 hi = final.hello.overrideAttrs (oldAttrs: {
-  # 			#		 patches = [ ./change-hello-to-hi.patch ];
-  # 			#	 });jsvd
-  # 			# })
-  # 		];
-  # 		# Configure your nixpkgs instance
-  # 		config = {
-  # 			# Disable if you don't want unfree packages
-  # 			allowUnfree = true;
-  # 			# Workaround for https://github.com/nix-community/home-manager/issues/2942
-  # 			allowUnfreePredicate = _: true;
-  # 		};
-  # 	};
+  };
 
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
-#  home.username = "${username}";
+  #  home.username = "${username}";
   home.username = "introvert";
   home.homeDirectory = "/home/introvert";
-#  home.homeDirectory =  lib.mkDefault "/home/${config.home.username}";
+  #  home.homeDirectory =  lib.mkDefault "/home/${config.home.username}";
   home.stateVersion = "24.11";
-
 
   home.packages = with pkgs; [
 
     # System Utilities
-  htop
-  tree
-  brightnessctl  # Brightness control
-  fastfetch  # System information fetcher
+    htop
+    tree
+    brightnessctl # Brightness control
+    fastfetch # System information fetcher
 
-  # Text Editors and IDEs
-  micro  # Need the macro editor for testing purposes
-  vscode
+    # Text Editors and IDEs
+    micro # Need the macro editor for testing purposes
+    vscode
 
-  # Fonts
+    # Fonts
 
-  # Audio and Volume Control
-  pavucontrol  # Volume control
-  playerctl  # Media player control tool
+    # Audio and Volume Control
+    pavucontrol # Volume control
+    playerctl # Media player control tool
 
-  # Bluetooth
-  blueman
+    # Bluetooth
+    blueman
 
-  # Communication
-  discord
+    # Communication
+    discord
 
-  # Window Management and Locking
-  hyprlock
-  wlogout
+    # Window Management and Locking
+    hyprlock
+    wlogout
 
-  # Note-taking and Productivity
-  obsidian
-  anytype
+    # Note-taking and Productivity
+    obsidian
+    anytype
 
-  # Appearance and Shell Customization
-  oh-my-posh
+    # Appearance and Shell Customization
+    oh-my-posh
 
-  # Screenshot and Video Recording
-  hyprshot  # Screenshot tool
-  obs-studio  # Video recorder
+    # Screenshot and Video Recording
+    hyprshot # Screenshot tool
+    obs-studio # Video recorder
 
-  # GTK Libraries
-  gtk3
-  gtk4
+    # GTK Libraries
+    gtk3
+    gtk4
 
-  # Image Rendering Dependencies
-  xorg.libX11
-  cairo
-  libpng
-  librsvg
+    # Image Rendering Dependencies
+    xorg.libX11
+    cairo
+    libpng
+    librsvg
 
-  # PDF and Document Viewing
-  zathura
+    # PDF and Document Viewing
+    zathura
 
-  # System Monitoring
-  btop
-  # Screen Recorder
-   wf-recorder
+    # System Monitoring
+    btop
+    # Screen Recorder
+    wf-recorder
 
-   cowsay
-  jetbrains.idea-ultimate
-  docker-compose
-  calcurse
-  textsnatcher
+    cowsay
+    jetbrains.idea-ultimate
+    docker-compose
+    calcurse
+    textsnatcher
 
   ];
 
-
-
-# ----------------------------------------------------------------------
+  # ----------------------------------------------------------------------
   # Want to add ZSH, dont know much about it but i will do my research
   # -------------------------------- ZSH BENGINS HERE
   # UPDATE: ZSH config has been moved to app/zsh.nix file.
 
- # Also what to install FZF, dont know much about it but i will find out
- # ------------------------------FZF BEGINS HERE 
- # -----------------------------FZF INTEGRATED WITH ZSH
- # UPDATE: FZF config has been moved to app/zsh.nix file.
+  # Also what to install FZF, dont know much about it but i will find out
+  # ------------------------------FZF BEGINS HERE 
+  # -----------------------------FZF INTEGRATED WITH ZSH
+  # UPDATE: FZF config has been moved to app/zsh.nix file.
 
-# SINCE THE CONFIG HAS BEEN MOVED WE WILL IMPORT THE zsh.nix folder in other to use the ZSH
-# IMPORTS CAN BE FOUND AT THE TOP OF THE FILE
-#------------------------------------------------------------------------
-
+  # SINCE THE CONFIG HAS BEEN MOVED WE WILL IMPORT THE zsh.nix folder in other to use the ZSH
+  # IMPORTS CAN BE FOUND AT THE TOP OF THE FILE
+  #------------------------------------------------------------------------
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
@@ -224,9 +207,9 @@ in {
   #  /etc/profiles/per-user/introvert/etc/profile.d/hm-session-vars.sh
   #
   home.sessionVariables = {
-  #GTK_THEME = "Nordic";
+    #GTK_THEME = "Nordic";
     # EDITOR = "emacs";
-        #For invisible cursor
+    #For invisible cursor
     WLR_NO_HARDWARE_CURSORS = "1";
     #Hint electron apps to use wayland
     NIXOS_OZONE_WL = "1"; # cant use this now
@@ -234,12 +217,12 @@ in {
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
-  
+
   #nixpkgs.config.allowUnfree = true;
- # nixpkgs.config.allowUnfreePredicate = _: true;
+  # nixpkgs.config.allowUnfreePredicate = _: true;
 
   ########
- # WAYBAR
+  # WAYBAR
   ########
   programs.waybar = {
     enable = true;
