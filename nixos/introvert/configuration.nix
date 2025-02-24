@@ -262,7 +262,7 @@ in
     #qt5ct
     libsForQt5.qt5ct # This is the new replacement
     #libsForQt6.qt6ct
-    qt6ct
+    #qt6ct
     qt6.qtwayland
     qt6Packages.qtstyleplugin-kvantum # kvantum
     libsForQt5.qtstyleplugin-kvantum

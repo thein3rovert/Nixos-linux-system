@@ -1,7 +1,14 @@
-{ lib, config, pkgs, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 with lib;
-let cfg = config.nmod.fonts;
-in {
+let
+  cfg = config.nmod.fonts;
+in
+{
   options.nmod.fonts = {
     extra = mkOption {
       type = types.listOf types.str;
@@ -29,15 +36,20 @@ in {
         source-code-pro
         ttf_bitstream_vera
         (nerdfonts.override {
-          fonts = [ "JetBrainsMono" "FiraCode" "DroidSansMono" ];
+          fonts = [
+            "JetBrainsMono"
+            "FiraCode"
+            "DroidSansMono"
+          ];
         })
       ];
     in
     {
       fonts = {
         fontconfig.useEmbeddedBitmaps = true;
-        packages = [ pkgs.dejavu_fonts ]
-          ++ (lib.optionals cfg.emoji emoji) ++ (lib.optionals cfg.nerd nerd);
+        packages = [
+          pkgs.dejavu_fonts
+        ] ++ (lib.optionals cfg.emoji emoji) ++ (lib.optionals cfg.nerd nerd);
       };
     };
 }

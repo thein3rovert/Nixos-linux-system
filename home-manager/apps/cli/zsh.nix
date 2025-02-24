@@ -21,20 +21,31 @@ in
         theme = "dst";
       };
       initExtra = ''
-        bindkey '^f' autosuggest-accept
-        # OH-MY-POSH
-        if [ "$TERM_PROGRAM" != "Apple_Terminal" ]; then
-          eval "$(oh-my-posh init zsh --config ~/.poshthemes/catppuccin_macchiato.omp.json )"
-        fi
+              bindkey '^f' autosuggest-accept
+              # OH-MY-POSH
+              if [ "$TERM_PROGRAM" != "Apple_Terminal" ]; then
+                eval "$(oh-my-posh init zsh --config ~/.poshthemes/catppuccin_macchiato.omp.json )"
+              fi
 
-        export NIX_PATH="nixpkgs=channel:nixos-unstable"
-        export NIX_LOG="info"
-        export TERMINAL="kitty"
+              export NIX_PATH="nixpkgs=channel:nixos-unstable"
+              export NIX_LOG="info"
+              export TERMINAL="kitty"
 
-        # Check if the current TTY is /dev/tty1 and run Hyprland
-        if [[ $(tty) == "/dev/tty1" ]]; then
-          exec Hyprland &> /dev/null
-        fi
+              export PATH="$HOME/bin:$PATH"
+
+              # Check if the current TTY is /dev/tty1 and run Hyprland
+              if [[ $(tty) == "/dev/tty1" ]]; then
+                exec Hyprland &> /dev/null
+              fi
+
+               # Git Commit Message Function
+        cmsg() {
+          if [ -z "$4" ]; then
+            git commit -m "$1($2): $3"
+          else
+            git commit -m "$1($2): $3" -m "$4"
+          fi
+        }
       '';
       shellAliases = {
         # Dirs
@@ -45,8 +56,8 @@ in
         "......" = "cd ../../../../..";
 
         # Eza
-        l = "eza -l --icons --git -a";
-        ltree = "eza --tree --level=2 --icons --git";
+        ltree = "eza -l --icons --git -a";
+        l = "eza --tree --level=2 --icons --git"; # Previous Command - ltree
         lt = "eza --tree --level=2 --long --icons --git";
         ls = "eza";
 
@@ -57,6 +68,7 @@ in
         # Git
         ga = "git add";
         gc = "git commit -m";
+        #gc = "cmsg"; # The contains "git commit -m"
         gs = "git status";
         gl = "git log --graph --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%an%C(reset)%C(bold yellow)%d%C(reset) %C(dim white)- %s%C(reset)' --all"; # check medium for better command line approach
         gp = "git push origin";
