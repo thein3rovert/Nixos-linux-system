@@ -20,6 +20,7 @@
 
   # Kernel modules to load at boot
   boot.kernelModules = [ "i2c-dev" ]; # Load i2c-dev module for I2C device support
+  boot.blacklistedKernelModules = [ "rtw88" ];
 
   # OBS Virtual Cam Support - v4l2loopback setup
   # boot.kernelModules = [ "v4l2loopback" ];  # Load v4l2loopback module for virtual camera support (commented out)

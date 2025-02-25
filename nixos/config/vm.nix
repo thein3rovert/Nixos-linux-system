@@ -17,7 +17,8 @@
     spice-protocol
     win-virtio
     win-spice
-    gnome.adwaita-icon-theme
+    adwaita-icon-theme
+    # gnome.adwaita-icon-theme
   ];
 
   # Manage the virtualisation services

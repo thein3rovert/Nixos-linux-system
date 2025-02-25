@@ -35,13 +35,9 @@ in
         kochi-substitute
         source-code-pro
         ttf_bitstream_vera
-        (nerdfonts.override {
-          fonts = [
-            "JetBrainsMono"
-            "FiraCode"
-            "DroidSansMono"
-          ];
-        })
+        nerd-fonts.fira-code
+        nerd-fonts.droid-sans-mono
+        nerd-fonts.jetbrains-mono
       ];
     in
     {

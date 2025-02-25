@@ -1,7 +1,7 @@
-#   ___  ____  ___  __  __  ____  ____  ____  _  _ 
+#   ___  ____  ___  __  __  ____  ____  ____  _  _
 #  / __)( ___)/ __)(  )(  )(  _ \(_  _)(_  _)( \/ )
-#  \__ \ )__)( (__  )(__)(  )   / _)(_   )(   \  / 
-#  (___/(____)\___)(______)(_)\_)(____) (__)  (__) 
+#  \__ \ )__)( (__  )(__)(  )   / _)(_   )(   \  /
+#  (___/(____)\___)(______)(_)\_)(____) (__)  (__)
 
 {
   pkgs,
@@ -53,11 +53,12 @@
   services.printing.enable = true;
   services.xserver.updateDbusEnvironment = true;
   services.flatpak.enable = true; # Need to update some new packages using flatpack e.g VSCODE
+  services.pulseaudio.enable = false; # This has been renamed from hardware to services so i moved it to services
 
   # Configure keymap in X11
   services.xserver = {
-    layout = "gb";
-    xkbVariant = "";
+    xkb.layout = "gb";
+    xkb.variant = "";
   };
 
   #Enable the GNOME Desktop Environment.
