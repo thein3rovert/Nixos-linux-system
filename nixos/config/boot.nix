@@ -15,7 +15,7 @@
 
   # Temporary filesystem (tmpfs) configuration
   boot.tmp.useTmpfs = true; # Use tmpfs for /tmp directory
-  boot.tmp.tmpfsSize = "7G"; # Set the size of tmpfs to 4GB
+  boot.tmp.tmpfsSize = "10G"; # Set the size of tmpfs to 4GB
   # boot.tmpfsSize = "4G";  # Alternative way to set tmpfs size (commented out)
 
   # Kernel modules to load at boot

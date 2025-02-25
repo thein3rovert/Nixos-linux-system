@@ -98,6 +98,7 @@ in
     # Text Editors and IDEs
     micro # Need the macro editor for testing purposes
     vscode
+    #vscode-fhs
 
     # Fonts
 
