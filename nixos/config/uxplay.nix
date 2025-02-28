@@ -7,12 +7,21 @@
     7000
     7001
     7100
+    20
+    21
   ];
   networking.firewall.allowedUDPPorts = [
     5353
     6000
     6001
     7011
+  ];
+
+  networking.firewall.allowedTCPPortRanges = [
+    {
+      from = 10000;
+      to = 10100;
+    }
   ];
 
   # To enable network-discovery
