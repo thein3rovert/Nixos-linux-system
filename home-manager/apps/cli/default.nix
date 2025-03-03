@@ -56,7 +56,11 @@
     nil # Used for my lua-language-server
 
     #   Addtional Cli tools
-    #    rainfrog --cant find on nixos packages 
+    #    rainfrog --cant find on nixos packages
     #    lazydocker #delete from configuration.nix
+    #
+    # Terminal Based Typing Test
+    toipe
+    tt
   ];
 }

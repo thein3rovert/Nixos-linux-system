@@ -11,7 +11,6 @@
     #   insomnia
     #   hugo
     #   pandoc
-    brave
     zed-editor
     postman
     jdk # Java dev kit
