@@ -60,7 +60,7 @@ in
         ltree = "eza -l --icons --git -a";
         l = "eza --tree --level=2 --icons --git"; # Previous Command - ltree
         lt = "eza --tree --level=2 --long --icons --git";
-        ls = "eza";
+        ls = "eza --icons";
 
         # Processes and Memory
         grep = "rg";
