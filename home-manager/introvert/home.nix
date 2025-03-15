@@ -158,7 +158,7 @@ in
   # UPDATE: ZSH config has been moved to app/zsh.nix file.
 
   # Also what to install FZF, dont know much about it but i will find out
-  # ------------------------------FZF BEGINS HERE 
+  # ------------------------------FZF BEGINS HERE
   # -----------------------------FZF INTEGRATED WITH ZSH
   # UPDATE: FZF config has been moved to app/zsh.nix file.
 

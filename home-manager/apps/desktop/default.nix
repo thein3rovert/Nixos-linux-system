@@ -1,6 +1,7 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   imports = [
-   # ./wayland.nix
+    # ./wayland.nix
     ./fonts.nix
     ./cursor.nix
     ./gtk.nix
@@ -15,5 +16,6 @@
     whatsapp-for-linux
     sticky
     spotify
+    flameshot
   ];
 }

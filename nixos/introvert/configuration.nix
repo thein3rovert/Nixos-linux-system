@@ -11,6 +11,7 @@
 }:
 
 let
+  dankmono-nerdfonts = pkgs.callPackage ../config/dankMono.nix { inherit pkgs; };
   inherit (import ../../options.nix)
     theLocale
     theTimezone
@@ -300,6 +301,7 @@ in
       nerd-fonts.fira-code
       nerd-fonts.droid-sans-mono
       nerd-fonts.jetbrains-mono
+      dankmono-nerdfonts
     ];
   };
 
