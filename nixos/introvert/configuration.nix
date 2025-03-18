@@ -233,7 +233,6 @@ in
   #           |___/                                                   |___/
   environment.systemPackages = with pkgs; [
     vim
-    wget
     git
     neovim
 
@@ -280,10 +279,9 @@ in
     #inputs.zen-browser.packages."${system}".generic
 
     lazydocker
-    ##  Required Dependencies for slides
-    plantuml
 
-    #vsftpd
+    nh
+
   ];
 
   fonts = {

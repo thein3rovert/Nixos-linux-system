@@ -22,7 +22,7 @@
       "window.titleBarStyle" = "custom"; # Custom title bar style
       # "workbench.colorTheme" = "Github Dark Colorblind (Beta)"; # Uncomment to use this color theme
       "workbench.colorTheme" = "Tokyo Night"; # Set the color theme to Tokyo Night
-      "editor.fontFamily" = "'M+1Code Nerd Font','Droid Sans Mono', 'monospace', monospace"; # Font settings
+      # "editor.fontFamily" = "'M+1Code Nerd Font','Droid Sans Mono', 'monospace', monospace"; # Font settings
 
       "github.copilot.enable" = {
         # GitHub Copilot settings
@@ -91,7 +91,7 @@
       "editor.cursorSmoothCaretAnimation" = "on"; # Enable smooth caret animation
       "editor.tabSize" = 2; # Set tab size to 2 spaces
       "editor.detectIndentation" = false; # Disable automatic indentation detection
-      #      "editor.fontFamily" = "Dank Mono"; # Set font family to Dank Mono
+      "editor.fontFamily" = "Dank Mono"; # Set font family to Dank Mono
       "editor.fontSize" = 14; # Set font size to 14
       "editor.fontLigatures" = true; # Enable font ligatures for a more aesthetic appearance
       "editor.lineHeight" = 1.5; # Set line height to 2.5 for better readability
