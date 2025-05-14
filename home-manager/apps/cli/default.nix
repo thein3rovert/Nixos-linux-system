@@ -62,5 +62,6 @@
     # Terminal Based Typing Test
     toipe
     tt
+    nvd
   ];
 }
