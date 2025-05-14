@@ -24,7 +24,7 @@
     ignoreShellProgramCheck = true;
     packages = [ inputs.home-manager.packages.${pkgs.system}.default ];
   };
-  users.extraGroups.docker.members = [ "thein3rovert" ];
+  users.extraGroups.docker.members = [ "introvert" ];
 
   home-manager.users.introvert =
     # Causes issue with users/common does not exit

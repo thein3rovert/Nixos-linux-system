@@ -17,5 +17,5 @@
   };
 
   # Add any users you want to give Docker access to
-  users.users.thein3rovert.extraGroups = [ "docker" ];
+  users.users.introvert.extraGroups = [ "docker" ];
 }
