@@ -268,7 +268,7 @@ in
     libsForQt5.qtstyleplugin-kvantum
     gtk-engine-murrine
 
-    anki-bin
+    # anki-bin
     nix-ld
 
     sshfs
@@ -278,9 +278,10 @@ in
     #inputs.zen-browser.packages."${system}".specific
     #inputs.zen-browser.packages."${system}".generic
 
-    lazydocker
-
+    # lazydocker
+    #
     nh
+    gparted
 
   ];
 

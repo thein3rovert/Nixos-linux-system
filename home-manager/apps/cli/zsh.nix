@@ -71,20 +71,6 @@ in
         gc = "git commit -m";
         #gc = "cmsg"; # The contains "git commit -m"
         gs = "git status";
-        gl = "git log --graph --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%an%C(reset)%C(bold yellow)%d%C(reset) %C(dim white)- %s%C(reset)' --all"; # check medium for better command line approach
-        gp = "git push origin";
-        gr = "git reset --soft HEAD~1";
-        gdiff = "git diff";
-        gco = "git checkout";
-        gb = "git branch";
-        glog = "git log --graph --topo-order --pretty='%w(100,0,6)%C(yellow)%h%C(bold)%C(black)%d %C(cyan)%ar %C(green)%an%n%C(bold)%C(white)%s %N' --abbrev-commit";
-        gpu = "git pull origin";
-
-        cat = "bat";
-
-        # History Search
-        h = "history";
-        hg = "history | grep ";
 
       };
     };

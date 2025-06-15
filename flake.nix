@@ -21,9 +21,12 @@
     stylix.url = "github:danth/stylix"; # Dont need this for now
     nix-colors.url = "github:misterio77/nix-colors";
 
-    ghostty = {
-      url = "github:ghostty-org/ghostty";
-    };
+    # ADDED: Colmena input
+    colmena.url = "github:zhaofengli/colmena";
+    #
+    # ghostty = {
+    #   url = "github:ghostty-org/ghostty";
+    # };
 
   };
   # REMEMBER TO BACKUP
@@ -34,14 +37,15 @@
       nixpkgs,
       catppuccin,
       nix-colors,
-      ghostty,
+      colmena,
+      # ghostty,
 
       ...
     }@inputs:
     let
       inherit (self) outputs;
       #   inherit (import ./options.nix) username hostname;
-      inherit (import ./options.nix);
+      inherit (import ./options.nix) ;
       systems = [
         "aarch64-linux"
         "i686-linux"
@@ -62,7 +66,7 @@
             inherit inputs outputs nix-colors;
           };
           modules = [
-            { environment.systemPackages = [ ghostty.packages.x86_64-linux.default ]; }
+            # { environment.systemPackages = [ ghostty.packages.x86_64-linux.default ]; }
 
             # ./hosts/m3-kratos
             catppuccin.nixosModules.catppuccin
@@ -70,6 +74,16 @@
             ./nixos/introvert
 
           ];
+        };
+      };
+      # ADDED: New colmenaHive output
+      colmenaHive = colmena.lib.makeHive self.outputs.colmena;
+
+      colmena = {
+        meta = {
+          nixpkgs = import nixpkgs {
+            system = "x86_64-linux";
+          };
         };
       };
       homeConfigurations = {
@@ -106,10 +120,10 @@
 
   #     nixosConfigurations = {
   #       "${hostname}"  = nixpkgs.lib.nixosSystem {
-  #         specialArgs = { 
-  #           inherit system; 
-  #           inherit inputs; 
-  #           inherit username; 
+  #         specialArgs = {
+  #           inherit system;
+  #           inherit inputs;
+  #           inherit username;
   #           inherit hostname;
   #           inherit pkgs;
   #         };
@@ -130,7 +144,7 @@
   #           ./home-manager/modules
   #         ];
   #         extraSpecialArgs = {
-  #           inherit inputs; 
+  #           inherit inputs;
   #           inherit username;
   #         };
   #       };

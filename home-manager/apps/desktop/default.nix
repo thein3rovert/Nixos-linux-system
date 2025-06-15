@@ -12,10 +12,10 @@
   ];
 
   home.packages = with pkgs; [
-    gimp-with-plugins
-    whatsapp-for-linux
-    sticky
-    spotify
-    flameshot
+    # gimp-with-plugins
+    # whatsapp-for-linux
+    # sticky
+    # spotify
+    # flameshot
   ];
 }

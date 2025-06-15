@@ -50,7 +50,7 @@
     prettierd
     unzip
     luajitPackages.jsregexp
-    slides
+    # slides
     just
     cargo
     nil # Used for my lua-language-server

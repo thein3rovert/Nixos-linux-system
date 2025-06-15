@@ -124,7 +124,7 @@ in
 
     # Screenshot and Video Recording
     hyprshot # Screenshot tool
-    obs-studio # Video recorder
+    # obs-studio # Video recorder
 
     # GTK Libraries
     gtk3
@@ -145,9 +145,9 @@ in
     wf-recorder
 
     cowsay
-    jetbrains.idea-ultimate
+    # jetbrains.idea-ultimate
     docker-compose
-    calcurse
+    # calcurse
     textsnatcher
 
   ];
