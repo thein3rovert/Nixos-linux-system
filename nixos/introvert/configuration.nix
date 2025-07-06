@@ -400,6 +400,14 @@ in
       nerd-fonts.droid-sans-mono
       nerd-fonts.jetbrains-mono
       dankmono-nerdfonts
+
+      # === INFO: Moved homr-manager fonts ===
+      fira-code
+      fira-code-symbols
+      nerd-fonts.fira-code
+      font-manager
+      font-awesome_5
+      noto-fonts
     ];
   };
 

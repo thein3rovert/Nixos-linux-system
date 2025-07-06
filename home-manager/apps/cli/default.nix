@@ -27,7 +27,8 @@
 
   home.packages = with pkgs; [
     #INFO:   === Packages have been moved to configuration.nix for now ===
-
+    #
+    test
     # coreutils
     # fd
     # htop
