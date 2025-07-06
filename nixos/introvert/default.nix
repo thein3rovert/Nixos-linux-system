@@ -36,5 +36,6 @@
   imports = [
     # ../common
     ./configuration.nix
+    ./home.nix
   ];
 }

@@ -5,6 +5,7 @@
     ./fzf.nix
     ./htop.nix
     ./git.nix
+    ./kitty.nix
   ];
 
   programs.zoxide = {
@@ -27,8 +28,6 @@
 
   home.packages = with pkgs; [
     #INFO:   === Packages have been moved to configuration.nix for now ===
-    #
-    test
     # coreutils
     # fd
     # htop

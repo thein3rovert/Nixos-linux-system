@@ -43,39 +43,95 @@
       ...
     }@inputs:
     let
-      inherit (self) outputs;
+      # inherit (self) outputs;
       #   inherit (import ./options.nix) username hostname;
       inherit (import ./options.nix) ;
-      systems = [
+      allSystems = [
         "aarch64-linux"
         "i686-linux"
         "x86_64-linux"
         "aarch64-darwin"
         "x86_64-darwin"
       ];
-      forAllSystems = nixpkgs.lib.genAttrs systems;
+
+      forAllSystems =
+        f:
+        self.inputs.nixpkgs.lib.genAttrs allSystems (
+          system:
+          f {
+            pkgs = import self.inputs.nixpkgs {
+              # inherit overlays system;
+              config.allowUnfree = true;
+            };
+          }
+        );
+
+      forAllLinuxHosts = self.inputs.nixpkgs.lib.genAttrs [
+        "nixos"
+      ];
+
+      # forAllSystems = nixpkgs.lib.genAttrs systems;
     in
     {
-      packages = forAllSystems (system: import ./pkgs nixpkgs.legacyPackages.${system});
+      # packages = forAllSystems (system: import ./pkgs nixpkgs.legacyPackages.${system});
       overlays = import ./overlays { inherit inputs; };
-      nixosConfigurations = {
-        "nixos" = nixpkgs.lib.nixosSystem {
-          # Import the username and hostname from options after changing my flake config
-          #        specialArgs = {inherit inputs outputs username hostna;};
+
+      nixosConfigurations = forAllLinuxHosts (
+        host:
+        self.inputs.nixpkgs.lib.nixosSystem {
           specialArgs = {
-            inherit inputs outputs nix-colors;
+            inherit
+              self
+              inputs
+              # outputs
+              nix-colors
+              ;
           };
+
           modules = [
-            # { environment.systemPackages = [ ghostty.packages.x86_64-linux.default ]; }
-
-            # ./hosts/m3-kratos
-            catppuccin.nixosModules.catppuccin
-            # stylix.nixosModules.stylix
             ./nixos/introvert
+            self.inputs.home-manager.nixosModules.home-manager
+            # inputs.home-manager.nixosModules.home-manager
+            # home-manager.nixosModules.home-manager
+            # inputs.home-manager.nixosModules.default
+            catppuccin.nixosModules.catppuccin
+            #INFO: Causing isseue with homeManager (found ya)
+            # catppuccin.homeManagerModules.catppuccin
+            {
+              home-manager = {
+                backupFileExtension = "backup";
+                extraSpecialArgs = { inherit self; };
+                useGlobalPkgs = true;
+                #  users.introvert = import ./nixos/introvert/home.nix;
+                useUserPackages = true;
+              };
 
+              nixpkgs = {
+                # inherit overlays;
+                config.allowUnfree = true;
+              };
+            }
           ];
-        };
-      };
+        }
+      );
+      # nixosConfigurations = {
+      #   "nixos" = nixpkgs.lib.nixosSystem {
+      #     # Import the username and hostname from options after changing my flake config
+      #     #        specialArgs = {inherit inputs outputs username hostna;};
+      #     specialArgs = {
+      #       inherit inputs outputs nix-colors;
+      #     };
+      #     modules = [
+      #       # { environment.systemPackages = [ ghostty.packages.x86_64-linux.default ]; }
+      #
+      #       # ./hosts/m3-kratos
+      #       catppuccin.nixosModules.catppuccin
+      #       # stylix.nixosModules.stylix
+      #       ./nixos/introvert
+      #
+      #     ];
+      #   };
+      # };
       # ADDED: New colmenaHive output
       colmenaHive = colmena.lib.makeHive self.outputs.colmena;
 
@@ -86,22 +142,22 @@
           };
         };
       };
-      homeConfigurations = {
-        "introvert@nixos" = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages."x86_64-linux";
-          #        extraSpecialArgs = {inherit inputs outputs username hostname;};
-          extraSpecialArgs = {
-            inherit inputs outputs;
-          };
-          modules = [
-            #./home/m3tam3re/m3tam3re.nix
-            ./home-manager/introvert/nixos.nix
-            ./home-manager/modules
-
-            catppuccin.homeManagerModules.catppuccin
-          ];
-        };
-      };
+      # homeConfigurations = {
+      #   "introvert@nixos" = home-manager.lib.homeManagerConfiguration {
+      #     pkgs = nixpkgs.legacyPackages."x86_64-linux";
+      #     #        extraSpecialArgs = {inherit inputs outputs username hostname;};
+      #     extraSpecialArgs = {
+      #       inherit inputs outputs;
+      #     };
+      #     modules = [
+      #       #./home/m3tam3re/m3tam3re.nix
+      #       ./home-manager/introvert/nixos.nix
+      #       ./home-manager/modules
+      #
+      #       catppuccin.homeManagerModules.catppuccin
+      #     ];
+      #   };
+      # };
     };
 
   # outputs = inputs@{ self, nixpkgs, home-manager,catppuccin, spicetify-nix,stylix, ...} :
