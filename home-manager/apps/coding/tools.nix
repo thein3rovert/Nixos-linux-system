@@ -12,14 +12,14 @@
     #   hugo
     #   pandoc
     zed-editor
-    postman
-    jdk # Java dev kit
-    jdt-language-server # Jdtls integration
-    checkstyle # Linter
-    google-java-format # Formatter
-    maven # Build automation tool for java
+    # postman
+    # jdk # Java dev kit
+    # jdt-language-server # Jdtls integration
+    # checkstyle # Linter
+    # google-java-format # Formatter
+    # maven # Build automation tool for java
     nixfmt-rfc-style
-    alacritty
-    taskwarrior3
+    # alacritty
+    # taskwarrior3
   ];
 }

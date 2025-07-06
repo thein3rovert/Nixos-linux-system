@@ -14,9 +14,9 @@
     ./security.nix
     ./hardware.nix
     # ./nixSettings.nix -- Now moved to common folder
-    ./uxplay.nix
+    # ./uxplay.nix
     ./battery.nix
-    ./vm.nix
+    # ./vm.nix
     ./fonts.nix
     ./vsftpd.nix
     #    ./dev -- fix zed later

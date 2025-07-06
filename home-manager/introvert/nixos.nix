@@ -1,13 +1,15 @@
-{ config, ... }: { imports = [ 
-  ../common 
-  ./home.nix 
-  ../apps/cli
+{ config, ... }:
+{
+  imports = [
+    ../common
+    ./home.nix
+    ../apps/cli
   ];
 
-apps = {
-  cli = {
-    zsh.enable = true;
-    fzf.enable = false;
+  apps = {
+    cli = {
+      zsh.enable = true;
+      fzf.enable = false;
+    };
   };
-};
 }
