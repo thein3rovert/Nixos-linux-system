@@ -19,6 +19,7 @@
     # ./vm.nix
     ./fonts.nix
     ./vsftpd.nix
+    # ./kitty.nix
     #    ./dev -- fix zed later
   ];
 }
