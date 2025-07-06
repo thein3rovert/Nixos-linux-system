@@ -50,6 +50,12 @@
         enable = true;
       };
 
+      home.sessionVariables = {
+        WLR_NO_HARDWARE_CURSORS = "1";
+        #Hint electron apps to use wayland
+        NIXOS_OZONE_WL = "1"; # cant use this now
+      };
+
       nix = {
         package = lib.mkDefault pkgs.nix;
         settings = {
