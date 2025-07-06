@@ -57,13 +57,15 @@ in
     "rtw_8821ce.disable_aspm=1"
   ];
 
-  users.users.introvert = {
-    # Set one of these to true
-    isNormalUser = true; # or isSystemUser = true;
+  # INFO: Use config added back from common folder
 
-    # Create a group for the user
-    group = "introvert";
-  };
+  # users.users.introvert = {
+  #   # Set one of these to true
+  #   isNormalUser = true; # or isSystemUser = true;
+  #
+  #   # Create a group for the user
+  #   group = "introvert";
+  # };
 
   users.groups.introvert = { };
 
@@ -159,27 +161,26 @@ in
   #  (______)(___/(____)(_)\_)(___/
 
   ## This user config has been moved to the "common/user" folder
-  #    users = {
-  #    users."${username}" = {
-  #    users."introvert" = {
-  #      isNormalUser = true;
-  #      description = "${gitUsername}";
-  #      extraGroups = [ "networkmanager" "wheel" "i2c" "libvirtd"
-  #      "flatpak"
-  #      "audio"
-  #      "video"
-  #      "plugdev"
-  #      "input"
-  #      "kvm"
-  #      "qemu-libvirtd"
-  #];
-  #      shell =pkgs.${theShell};
-  #      ignoreShellProgramCheck = true;
-  #      packages = with pkgs; [
-  #    #  thunderbird
-  #      ];
-  #   };
-  #  };
+  #INFO: UPPDATE: This config has been moved back from the common folder
+
+  users.users.introvert = {
+    isNormalUser = true;
+    description = "thein3rovert";
+    extraGroups = [
+      "wheel"
+      "networkmanager"
+      "libvirtd"
+      "flatpak"
+      "audio"
+      "video"
+      "plugdev"
+      "input"
+      "kvm"
+      "qemu-libvirtd"
+    ];
+
+    packages = [ inputs.home-manager.packages.${pkgs.system}.default ];
+  };
 
   #   ____  _  _  _  _
   #  ( ___)( \( )( \/ )
@@ -218,7 +219,7 @@ in
     };
   };
 
-  programs.firefox.enable = true;
+  # programs.firefox.enable = true;
   programs.nix-ld.enable = true;
   programs.nix-ld.libraries = [ ];
   # nixpkgs.config.allowUnfree = true;
@@ -283,6 +284,104 @@ in
     nh
     gparted
 
+    # === Moved Home-Manager Packages ===
+    coreutils
+    fd
+    htop
+    httpie
+    jq
+    procs
+    ripgrep
+    tldr
+    zip
+
+    ##  Important files for neovim config
+    lua-language-server
+    lua51Packages.lua
+    gccgo14
+    luajitPackages.luarocks
+    tree-sitter
+    vimPlugins.luasnip
+    python312Packages.pip
+    prettierd
+    unzip
+    luajitPackages.jsregexp
+    # slides
+    just
+    cargo
+    nil # Used for my lua-language-server
+
+    #   Addtional Cli tools
+    #    rainfrog --cant find on nixos packages
+    #    lazydocker #delete from configuration.nix
+    #
+    # Terminal Based Typing Test
+    toipe
+    tt
+    nvd
+
+    #   === Packages for home.nix ===
+    # System Utilities
+    htop
+    tree
+    brightnessctl # Brightness control
+    fastfetch # System information fetcher
+
+    # Text Editors and IDEs
+    micro # Need the macro editor for testing purposes
+    vscode
+    #vscode-fhs
+
+    # Fonts
+
+    # Audio and Volume Control
+    pavucontrol # Volume control
+    playerctl # Media player control tool
+
+    # Bluetooth
+    blueman
+
+    # Communication
+    # discord
+
+    # Window Management and Locking
+    hyprlock
+    wlogout
+
+    # Note-taking and Productivity
+    obsidian
+
+    # Appearance and Shell Customization
+    oh-my-posh
+
+    # Screenshot and Video Recording
+    hyprshot # Screenshot tool
+    # obs-studio # Video recorder
+
+    # GTK Libraries
+    gtk3
+    gtk4
+
+    # Image Rendering Dependencies
+    xorg.libX11
+    cairo
+    libpng
+    librsvg
+
+    # PDF and Document Viewing
+    zathura
+
+    # System Monitoring
+    btop
+    # Screen Recorder
+    wf-recorder
+
+    cowsay
+    # jetbrains.idea-ultimate
+    docker-compose
+    # calcurse
+    textsnatcher
+
   ];
 
   fonts = {
@@ -302,6 +401,13 @@ in
       nerd-fonts.jetbrains-mono
       dankmono-nerdfonts
     ];
+  };
+
+  ########
+  # WAYBAR
+  ########
+  programs.waybar = {
+    enable = true;
   };
 
   # Some programs need SUID wrappers, can be configured further or are

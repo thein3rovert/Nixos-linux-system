@@ -26,42 +26,41 @@
   };
 
   home.packages = with pkgs; [
-    coreutils
-    fd
-    htop
-    httpie
-    jq
-    procs
-    ripgrep
-    tldr
-    zip
+    #INFO:   === Packages have been moved to configuration.nix for now ===
 
-    #   Music
-    cmus
-
-    ##  Important files for neovim config
-    lua-language-server
-    lua51Packages.lua
-    gccgo14
-    luajitPackages.luarocks
-    tree-sitter
-    vimPlugins.luasnip
-    python312Packages.pip
-    prettierd
-    unzip
-    luajitPackages.jsregexp
-    # slides
-    just
-    cargo
-    nil # Used for my lua-language-server
-
-    #   Addtional Cli tools
-    #    rainfrog --cant find on nixos packages
-    #    lazydocker #delete from configuration.nix
+    # coreutils
+    # fd
+    # htop
+    # httpie
+    # jq
+    # procs
+    # ripgrep
+    # tldr
+    # zip
     #
-    # Terminal Based Typing Test
-    toipe
-    tt
-    nvd
+    # ##  Important files for neovim config
+    # lua-language-server
+    # lua51Packages.lua
+    # gccgo14
+    # luajitPackages.luarocks
+    # tree-sitter
+    # vimPlugins.luasnip
+    # python312Packages.pip
+    # prettierd
+    # unzip
+    # luajitPackages.jsregexp
+    # # slides
+    # just
+    # cargo
+    # nil # Used for my lua-language-server
+    #
+    # #   Addtional Cli tools
+    # #    rainfrog --cant find on nixos packages
+    # #    lazydocker #delete from configuration.nix
+    # #
+    # # Terminal Based Typing Test
+    # toipe
+    # tt
+    # nvd
   ];
 }

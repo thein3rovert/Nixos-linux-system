@@ -88,67 +88,67 @@ in
   home.stateVersion = "24.11";
 
   home.packages = with pkgs; [
-
-    # System Utilities
-    htop
-    tree
-    brightnessctl # Brightness control
-    fastfetch # System information fetcher
-
-    # Text Editors and IDEs
-    micro # Need the macro editor for testing purposes
-    vscode
-    #vscode-fhs
-
-    # Fonts
-
-    # Audio and Volume Control
-    pavucontrol # Volume control
-    playerctl # Media player control tool
-
-    # Bluetooth
-    blueman
-
-    # Communication
-    discord
-
-    # Window Management and Locking
-    hyprlock
-    wlogout
-
-    # Note-taking and Productivity
-    obsidian
-
-    # Appearance and Shell Customization
-    oh-my-posh
-
-    # Screenshot and Video Recording
-    hyprshot # Screenshot tool
-    # obs-studio # Video recorder
-
-    # GTK Libraries
-    gtk3
-    gtk4
-
-    # Image Rendering Dependencies
-    xorg.libX11
-    cairo
-    libpng
-    librsvg
-
-    # PDF and Document Viewing
-    zathura
-
-    # System Monitoring
-    btop
-    # Screen Recorder
-    wf-recorder
-
-    cowsay
-    # jetbrains.idea-ultimate
-    docker-compose
-    # calcurse
-    textsnatcher
+    #
+    # # System Utilities
+    # htop
+    # tree
+    # brightnessctl # Brightness control
+    # fastfetch # System information fetcher
+    #
+    # # Text Editors and IDEs
+    # micro # Need the macro editor for testing purposes
+    # vscode
+    # #vscode-fhs
+    #
+    # # Fonts
+    #
+    # # Audio and Volume Control
+    # pavucontrol # Volume control
+    # playerctl # Media player control tool
+    #
+    # # Bluetooth
+    # blueman
+    #
+    # # Communication
+    # # discord
+    #
+    # # Window Management and Locking
+    # hyprlock
+    # wlogout
+    #
+    # # Note-taking and Productivity
+    # obsidian
+    #
+    # # Appearance and Shell Customization
+    # oh-my-posh
+    #
+    # # Screenshot and Video Recording
+    # hyprshot # Screenshot tool
+    # # obs-studio # Video recorder
+    #
+    # # GTK Libraries
+    # gtk3
+    # gtk4
+    #
+    # # Image Rendering Dependencies
+    # xorg.libX11
+    # cairo
+    # libpng
+    # librsvg
+    #
+    # # PDF and Document Viewing
+    # zathura
+    #
+    # # System Monitoring
+    # btop
+    # # Screen Recorder
+    # wf-recorder
+    #
+    # cowsay
+    # # jetbrains.idea-ultimate
+    # docker-compose
+    # # calcurse
+    # textsnatcher
 
   ];
 
