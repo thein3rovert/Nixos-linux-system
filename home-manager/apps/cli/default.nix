@@ -27,6 +27,7 @@
   };
 
   home.packages = with pkgs; [
+    tmux
     #INFO:   === Packages have been moved to configuration.nix for now ===
     # coreutils
     # fd

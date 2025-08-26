@@ -236,7 +236,6 @@ in
     vim
     git
     neovim
-
     # Waybar with experimental features enabled
     (waybar.overrideAttrs (oldAttrs: {
       mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
@@ -254,30 +253,23 @@ in
     networkmanagerapplet # Network Manager applet
     #  xcb-util-cursor           # XCB cursor utilities
     xorg.libxcb # Xorg XCB libraries
-    ddcutil # Brighness contro, works for external monitor
     pulseaudio
     #-------------------------
     xdg-user-dirs
     xdg-utils
     # Desktop Theming
-    #qt5ct
     libsForQt5.qt5ct # This is the new replacement
-    #libsForQt6.qt6ct
-    #qt6ct
     qt6.qtwayland
     qt6Packages.qtstyleplugin-kvantum # kvantum
     libsForQt5.qtstyleplugin-kvantum
     gtk-engine-murrine
 
-    # anki-bin
     nix-ld
 
     sshfs
     tokyonight-gtk-theme
 
     inputs.zen-browser.packages."${system}".default
-    #inputs.zen-browser.packages."${system}".specific
-    #inputs.zen-browser.packages."${system}".generic
 
     # lazydocker
     #
@@ -306,19 +298,9 @@ in
     prettierd
     unzip
     luajitPackages.jsregexp
-    # slides
     just
     cargo
     nil # Used for my lua-language-server
-
-    #   Addtional Cli tools
-    #    rainfrog --cant find on nixos packages
-    #    lazydocker #delete from configuration.nix
-    #
-    # Terminal Based Typing Test
-    toipe
-    tt
-    nvd
 
     #   === Packages for home.nix ===
     # System Utilities
@@ -328,9 +310,7 @@ in
     fastfetch # System information fetcher
 
     # Text Editors and IDEs
-    micro # Need the macro editor for testing purposes
     vscode
-    #vscode-fhs
 
     # Fonts
 
@@ -373,13 +353,7 @@ in
 
     # System Monitoring
     btop
-    # Screen Recorder
-    wf-recorder
 
-    cowsay
-    # jetbrains.idea-ultimate
-    docker-compose
-    # calcurse
     textsnatcher
 
   ];
