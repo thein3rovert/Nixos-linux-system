@@ -13,8 +13,8 @@
     ./buildtools.nix
     ./security.nix
     ./hardware.nix
-    # ./nixSettings.nix -- Now moved to common folder
-    # ./uxplay.nix
+    ./nixSettings.nix
+    ./uxplay.nix
     ./battery.nix
     # ./vm.nix
     ./fonts.nix
