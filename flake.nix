@@ -84,6 +84,9 @@
             ./nixos/${host}
             self.inputs.home-manager.nixosModules.home-manager
             catppuccin.nixosModules.catppuccin
+
+            # === Custom Modules ===
+            self.nixosModules.nixosOs
             {
               home-manager = {
                 backupFileExtension = "backup";
@@ -99,6 +102,11 @@
           ];
         }
       );
+
+      # === Nixos Custom Modules ===
+      nixosModules = {
+        nixosOs = ./modules/nixos;
+      };
 
       # -------------------------------
       # DEPLOYMENT
