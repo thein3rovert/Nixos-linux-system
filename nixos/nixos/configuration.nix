@@ -26,6 +26,12 @@ in
     ../config
   ];
 
+  nixosSetup = {
+    programs = {
+      podman.enable = true;
+    };
+  };
+
   services.udev.packages = [
     (pkgs.runCommand "custom-udev-rules" { buildInputs = [ pkgs.coreutils ]; } ''
       mkdir -p $out/lib/udev/rules.d
