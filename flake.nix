@@ -43,9 +43,6 @@
       ...
     }@inputs:
     let
-      # inherit (self) outputs;
-      #   inherit (import ./options.nix) username hostname;
-      inherit (import ./options.nix) ;
       allSystems = [
         "aarch64-linux"
         "i686-linux"
@@ -69,11 +66,8 @@
       forAllLinuxHosts = self.inputs.nixpkgs.lib.genAttrs [
         "nixos"
       ];
-
-      # forAllSystems = nixpkgs.lib.genAttrs systems;
     in
     {
-      # packages = forAllSystems (system: import ./pkgs nixpkgs.legacyPackages.${system});
       overlays = import ./overlays { inherit inputs; };
 
       nixosConfigurations = forAllLinuxHosts (
@@ -83,29 +77,20 @@
             inherit
               self
               inputs
-              # outputs
               nix-colors
               ;
           };
-
           modules = [
             ./nixos/${host}
             self.inputs.home-manager.nixosModules.home-manager
-            # inputs.home-manager.nixosModules.home-manager
-            # home-manager.nixosModules.home-manager
-            # inputs.home-manager.nixosModules.default
             catppuccin.nixosModules.catppuccin
-            #INFO: Causing isseue with homeManager (found ya)
-            # catppuccin.homeManagerModules.catppuccin
             {
               home-manager = {
                 backupFileExtension = "backup";
                 extraSpecialArgs = { inherit self; };
                 useGlobalPkgs = true;
-                #  users.introvert = import ./nixos/introvert/home.nix;
                 useUserPackages = true;
               };
-
               nixpkgs = {
                 # inherit overlays;
                 config.allowUnfree = true;
@@ -114,24 +99,11 @@
           ];
         }
       );
-      # nixosConfigurations = {
-      #   "nixos" = nixpkgs.lib.nixosSystem {
-      #     # Import the username and hostname from options after changing my flake config
-      #     #        specialArgs = {inherit inputs outputs username hostna;};
-      #     specialArgs = {
-      #       inherit inputs outputs nix-colors;
-      #     };
-      #     modules = [
-      #       # { environment.systemPackages = [ ghostty.packages.x86_64-linux.default ]; }
-      #
-      #       # ./hosts/m3-kratos
-      #       catppuccin.nixosModules.catppuccin
-      #       # stylix.nixosModules.stylix
-      #       ./nixos/introvert
-      #
-      #     ];
-      #   };
-      # };
+
+      # -------------------------------
+      # DEPLOYMENT
+      # --------------------------------
+
       # ADDED: New colmenaHive output
       colmenaHive = colmena.lib.makeHive self.outputs.colmena;
 
@@ -142,68 +114,5 @@
           };
         };
       };
-      # homeConfigurations = {
-      #   "introvert@nixos" = home-manager.lib.homeManagerConfiguration {
-      #     pkgs = nixpkgs.legacyPackages."x86_64-linux";
-      #     #        extraSpecialArgs = {inherit inputs outputs username hostname;};
-      #     extraSpecialArgs = {
-      #       inherit inputs outputs;
-      #     };
-      #     modules = [
-      #       #./home/m3tam3re/m3tam3re.nix
-      #       ./home-manager/introvert/nixos.nix
-      #       ./home-manager/modules
-      #
-      #       catppuccin.homeManagerModules.catppuccin
-      #     ];
-      #   };
-      # };
     };
-
-  # outputs = inputs@{ self, nixpkgs, home-manager,catppuccin, spicetify-nix,stylix, ...} :
-  #   let
-  #     system = "x86_64-linux";
-  #     inherit (import ./options.nix) username hostname;
-
-  #     pkgs = import nixpkgs {
-  #           inherit system;
-  #           config = {
-  #     	    allowUnfree = true;
-  #           };
-  #         };
-  #    # pkgs = nixpkgs.legacyPackages.${system};
-  #   in {
-
-  #     nixosConfigurations = {
-  #       "${hostname}"  = nixpkgs.lib.nixosSystem {
-  #         specialArgs = {
-  #           inherit system;
-  #           inherit inputs;
-  #           inherit username;
-  #           inherit hostname;
-  #           inherit pkgs;
-  #         };
-  #       modules = [
-  #           catppuccin.nixosModules.catppuccin
-  #           stylix.nixosModules.stylix
-  #           ./nixos/configuration.nix
-  #         ];
-  #       };
-  #     };
-
-  #     homeConfigurations = {
-  #        "${username}" = home-manager.lib.homeManagerConfiguration {
-  #         inherit pkgs;
-  #         modules = [
-  #           catppuccin.homeManagerModules.catppuccin
-  #           ./home-manager/home.nix
-  #           ./home-manager/modules
-  #         ];
-  #         extraSpecialArgs = {
-  #           inherit inputs;
-  #           inherit username;
-  #         };
-  #       };
-  #     };
-  #   };
 }

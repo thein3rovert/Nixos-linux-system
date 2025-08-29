@@ -15,21 +15,15 @@ let
   inherit (import ../../options.nix)
     theLocale
     theTimezone
-    gitUsername
-    theShell
     theLCVariables
     theKBDLayout
     flakeDir
-    httpProxy
-    socksProxy
     ;
 in
-
 {
   imports = [
-    # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    ../config # Contains hardware files
+    ../config
   ];
 
   services.udev.packages = [
@@ -57,25 +51,10 @@ in
     "rtw_8821ce.disable_aspm=1"
   ];
 
-  # INFO: Use config added back from common folder
-
-  # users.users.introvert = {
-  #   # Set one of these to true
-  #   isNormalUser = true; # or isSystemUser = true;
-  #
-  #   # Create a group for the user
-  #   group = "introvert";
-  # };
-
-  users.groups.introvert = { };
-
   #   __  __  ____  ___   ___
   #  (  \/  )(_  _)/ __) / __)
   #   )    (  _)(_ \__ \( (__
   #  (_/\/\_)(____)(___/ \___)
-
-  #qt.enable = true;
-  #qt.style.name = "gtk2";
 
   catppuccin = {
     enable = true;
@@ -112,7 +91,6 @@ in
   networking.networkmanager.enable = true;
 
   virtualisation.docker.enable = true;
-  # virtualisation.docker.rootless.enable = true;
   virtualisation.docker.rootless = {
     enable = true;
     setSocketVariable = true;
@@ -163,6 +141,7 @@ in
   ## This user config has been moved to the "common/user" folder
   #INFO: UPPDATE: This config has been moved back from the common folder
 
+  users.groups.introvert = { };
   users.users.introvert = {
     isNormalUser = true;
     description = "thein3rovert";
@@ -178,7 +157,6 @@ in
       "kvm"
       "qemu-libvirtd"
     ];
-
     packages = [ inputs.home-manager.packages.${pkgs.system}.default ];
   };
 
@@ -190,11 +168,6 @@ in
   environment.variables = {
     FLAKE = "${flakeDir}";
     QT_QPA_PLATFORMTHEME = "qt5ct"; # For Qt5 applications
-    #  QT_QPA_PLATFORMTHEME = "qt6ct";   # For Qt6 applications
-
-    #      QT_QPA_PLATFORMTHEME = "kvantum";
-    #     QT_STYLE_OVERRIDE = "kvantum";
-    # POLKIT_BIN = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
   };
   environment.sessionVariables = {
     #For invisible cursor
@@ -207,7 +180,7 @@ in
   #  (  _ \(  _ \(  _  )/ __)(  _ \  /__\  (  \/  )/ __)
   #   )___/ )   / )(_)(( (_-. )   / /(__)\  )    ( \__ \
   #  (__)  (_)\_)(_____)\___/(_)\_)(__)(__)(_/\/\_)(___/
-  #SHELL CONFIGURATION
+
   #  programs.zsh.enable = true;
   environment.shells = with pkgs; [ zsh ];
 
