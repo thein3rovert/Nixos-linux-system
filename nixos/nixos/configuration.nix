@@ -26,6 +26,9 @@ in
     ../config
   ];
 
+  # -------------------
+  # CUSTOM MODULES
+  # --------------------
   nixosSetup = {
     programs = {
       podman.enable = true;
@@ -244,6 +247,7 @@ in
     gtk-engine-murrine
 
     nix-ld
+    nixd
 
     sshfs
     tokyonight-gtk-theme
