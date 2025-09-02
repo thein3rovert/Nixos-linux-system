@@ -13,11 +13,16 @@ let
 in
 {
   # Handled and managed by nixos services
-  options.nixosSetup.programs.${service}.enable = lib.mkEnableOption {
+  options.nixosSetup.programs.${service} = {
+    enable = lib.mkEnableOption {
+      description = "Enable ${service} container runtime";
+    };
+    programGroup = lib.mkOption {
+      type = lib.types.str;
+      default = "${pg.group}";
+    };
 
-    description = "Enable ${service} container runtime";
   };
-
   config = lib.mkIf cfg.enable {
     environment.systemPackages = lib.optionals config.services.xserver.enable [ pkgs.pods ];
 
@@ -33,6 +38,6 @@ in
       };
     };
 
-    users.users.introvert.extraGroups = [ "docker" ];
+    users.users."${cfg.programGroup}".extraGroups = [ "docker" ];
   };
 }
