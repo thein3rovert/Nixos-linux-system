@@ -32,6 +32,7 @@ in
   nixosSetup = {
     programs = {
       podman.enable = true;
+      obs-studio.enable = true;
     };
   };
 

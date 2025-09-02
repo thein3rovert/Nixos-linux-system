@@ -1,4 +1,7 @@
 { ... }:
 {
-  imports = [ ./podman ];
+  imports = [
+    ./podman
+    ./obs-studio
+  ];
 }
