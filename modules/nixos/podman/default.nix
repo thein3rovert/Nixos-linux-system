@@ -5,8 +5,10 @@
   ...
 }:
 let
+  # INFO: This config idea was taken from @notthebee config
+  # https://github.com/notthebee/nix-config/blob/main/homelab/services/miniflux/default.nix
   service = "podman";
-  pg = config.nixosSetup;
+  pg = config.nixosSetup; # Check default options in .. dir
   cfg = pg.programs.${service};
 in
 {
@@ -23,8 +25,7 @@ in
       oci-containers = {
         backend = "${service}";
       };
-      # Try sting interpolation for podman later
-      podman = {
+      ${service} = {
         enable = true;
         autoPrune.enable = true;
         defaultNetwork.settings.dns_enabled = true; # Required for containers under podman-compose to be able to talk to each other.
