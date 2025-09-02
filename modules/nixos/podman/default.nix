@@ -4,18 +4,26 @@
   pkgs,
   ...
 }:
+let
+  service = "podman";
+  pg = config.nixosSetup;
+  cfg = pg.programs.${service};
+in
 {
   # Handled and managed by nixos services
-  options.nixosSetup.programs.podman.enable = lib.mkEnableOption "podman container runtime";
+  options.nixosSetup.programs.${service}.enable = lib.mkEnableOption {
 
-  config = lib.mkIf config.nixosSetup.programs.podman.enable {
+    description = "Enable ${service} container runtime";
+  };
+
+  config = lib.mkIf cfg.enable {
     environment.systemPackages = lib.optionals config.services.xserver.enable [ pkgs.pods ];
 
     virtualisation = {
       oci-containers = {
-        backend = "podman";
+        backend = "${service}";
       };
-
+      # Try sting interpolation for podman later
       podman = {
         enable = true;
         autoPrune.enable = true;
