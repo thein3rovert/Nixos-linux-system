@@ -22,5 +22,6 @@ in
   imports = [
     ./podman
     ./obs-studio
+    ./services
   ];
 }
