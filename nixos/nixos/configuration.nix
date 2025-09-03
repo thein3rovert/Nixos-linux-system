@@ -34,6 +34,9 @@ in
       podman.enable = true;
       obs-studio.enable = true;
     };
+    services = {
+      linkding.enable = true;
+    };
   };
 
   services.udev.packages = [
