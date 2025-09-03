@@ -34,6 +34,8 @@ in
 
               export PATH="$HOME/bin:$PATH"
 
+              export PATH="$PATH:$HOME/go/bin"
+
               # Check if the current TTY is /dev/tty1 and run Hyprland
               if [[ $(tty) == "/dev/tty1" ]]; then
                 exec Hyprland &> /dev/null
