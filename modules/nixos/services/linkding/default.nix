@@ -1,6 +1,5 @@
 { config, lib, ... }:
 let
-  # TODO: MAKE CONFIG AN OPTION
   #service = "${srv.linkding}";
   service = "linkding";
   srv = config.nixosSetup.services;
@@ -13,7 +12,7 @@ in
     };
     serviceName = lib.mkOption {
       type = lib.types.str;
-      default = "${srv.linkdingName}";
+      default = "${srv.linkdingName}"; # get name from default modules
     };
   };
   config = lib.mkIf cfg.enable {

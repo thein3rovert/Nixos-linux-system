@@ -10,9 +10,8 @@ in
     programs.zsh = {
       enable = true;
       enableCompletion = true;
-      autosuggestion.enable = true;
-      #  enableSyntaxHighlighting = true;
-      syntaxHighlighting.enable = true;
+      enableAutosuggestions = true;
+      enableSyntaxHighlighting = true;
       oh-my-zsh = {
         enable = true;
         plugins = [
@@ -21,34 +20,39 @@ in
         ];
         theme = "dst";
       };
-      initExtra = ''
-              bindkey '^f' autosuggest-accept
-              # OH-MY-POSH
-              if [ "$TERM_PROGRAM" != "Apple_Terminal" ]; then
-                eval "$(oh-my-posh init zsh --config ~/.poshthemes/catppuccin_macchiato.omp.json )"
-              fi
+      initContent = ''
 
-              export NIX_PATH="nixpkgs=channel:nixos-unstable"
-              export NIX_LOG="info"
-              export TERMINAL="kitty"
+        # Check if the current TTY is /dev/tty1 and run Hyprland
+        if [[ $(tty) == "/dev/tty1" ]]; then
+          exec Hyprland &> /dev/null
+        fi
 
-              export PATH="$HOME/bin:$PATH"
 
-              export PATH="$PATH:$HOME/go/bin"
+        export NIX_PATH="nixpkgs=channel:nixos-unstable"
+        export NIX_LOG="info"
+        export TERM="xterm-256color"
+        export TERMINAL="kitty"
+        export HOSTNAME="nixos"
 
-              # Check if the current TTY is /dev/tty1 and run Hyprland
-              if [[ $(tty) == "/dev/tty1" ]]; then
-                exec Hyprland &> /dev/null
-              fi
+        bindkey '^f' autosuggest-accept
+        # OH-MY-POSH
+        if [ "$TERM_PROGRAM" != "Apple_Terminal" ]; then
+          eval "$(oh-my-posh init zsh --config ~/.poshthemes/catppuccin_macchiato.omp.json )"
+        fi
 
-               # Git Commit Message Function
+        # Paths
+        export PATH="$HOME/bin:$PATH"
+        export PATH="$PATH:$HOME/go/bin"
+
+        # Git Commit Message Function
         cmsg() {
-          if [ -z "$4" ]; then
-            git commit -m "$1($2): $3"
-          else
-            git commit -m "$1($2): $3" -m "$4"
-          fi
-        }
+            if [ -z "$4" ]; then
+              git commit -m "$1($2): $3"
+            else
+              git commit -m "$1($2): $3" -m "$4"
+            fi
+          }
+
       '';
       shellAliases = {
         # Dirs

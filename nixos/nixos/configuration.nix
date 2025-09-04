@@ -207,7 +207,15 @@ in
 
   # programs.firefox.enable = true;
   programs.nix-ld.enable = true;
-  programs.nix-ld.libraries = [ ];
+  programs.nix-ld.libraries = with pkgs; [
+    stdenv.cc.cc.lib
+    zlib
+    openssl
+    libkrb5
+    util-linux
+    glibc
+  ];
+
   # nixpkgs.config.allowUnfree = true;
 
   #     _____           _                   _____           _

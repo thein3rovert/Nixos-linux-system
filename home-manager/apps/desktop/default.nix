@@ -7,7 +7,7 @@
     ./gtk.nix
     ./wayland.nix
     ./micro.nix
-    ./vscode.nix
+    # ./vscode.nix
     ./portals.nix
   ];
 
