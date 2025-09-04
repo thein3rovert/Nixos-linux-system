@@ -16,8 +16,9 @@ in
       type = lib.types.submodule {
         options = {
           enable = lib.mkEnableOption "open required firewall ports";
+
           allowedTCPPorts = lib.mkOption {
-            type = lib.types.listof lib.types.port;
+            type = lib.types.listOf lib.types.port;
             default = [
               7000
               7001
@@ -25,8 +26,9 @@ in
               21
             ];
           };
+
           allowedUDPPorts = lib.mkOption {
-            type = lib.types.listof lib.types.port;
+            type = lib.types.listOf lib.types.port;
             default = [
               5353
               6000
@@ -34,13 +36,12 @@ in
               7011
             ];
           };
+
           allowedTCPPortRanges = lib.mkOption {
-            type = lib.types.listof (
+            type = lib.types.listOf (
               lib.types.submodule {
                 options = {
-                  from = lib.mkOption {
-                    type = lib.types.port;
-                  };
+                  from = lib.mkOption { type = lib.types.port; };
                   to = lib.mkOption { type = lib.types.port; };
                 };
               }
@@ -49,7 +50,7 @@ in
         };
       };
       default = {
-        enable = true;
+        enable = false; # I dont want firewall enable for now
       };
     };
 
@@ -58,7 +59,7 @@ in
         options = {
           enable = lib.mkEnableOption "Enable avahi for discovery";
           publish = lib.mkOption {
-            type = lib.types.attrOf lib.types.bool;
+            type = lib.types.attrsOf lib.types.bool;
             default = {
               enable = true;
               addresses = true;
@@ -77,24 +78,24 @@ in
     extraPackages = lib.mkOption {
       type = lib.types.listOf lib.types.package;
       default = [ pkgs.uxplay ];
-      descriptions = "Extra [packages to install uxPlay.";
-    };
-
-    config = lib.mkIf cfg.enable {
-      networking.firewall = lib.mkIf cfg.enable.firewall.enable {
-        allowedTCPPorts = cfg.firewall.allowedTCPPorts;
-        allowedUDPPort = cfg.firewall.allowedUDPPort;
-        allowedTCPPortRanges = cfg.firewall.allowedTCPPortRanges;
-      };
-
-      services.avahi = lib.mkIf cfg.avahi.enable {
-        enable = true;
-        nssmdns4 = true;
-        openFirewall = true;
-        publish = cfg.avahi.publish;
-      };
-      environment.systemPackages = cfg.extraPackages;
+      description = "Extra [packages to install uxPlay.";
     };
 
   };
+  config = lib.mkIf cfg.enable {
+    networking.firewall = lib.mkIf cfg.firewall.enable {
+      allowedTCPPorts = cfg.firewall.allowedTCPPorts;
+      allowedUDPPorts = cfg.firewall.allowedUDPPorts;
+      allowedTCPPortRanges = cfg.firewall.allowedTCPPortRanges;
+    };
+
+    services.avahi = lib.mkIf cfg.avahi.enable {
+      enable = true;
+      nssmdns4 = true;
+      openFirewall = true;
+      publish = cfg.avahi.publish;
+    };
+    environment.systemPackages = cfg.extraPackages;
+  };
+
 }

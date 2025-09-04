@@ -33,6 +33,35 @@ in
     programs = {
       podman.enable = true;
       obs-studio.enable = true;
+      uxplay = {
+        enable = true;
+
+        firewall = {
+          enable = false;
+          allowedTCPPorts = [
+            7000
+            7001
+          ]; # override defaults if you want
+          allowedUDPPorts = [
+            5353
+            6000
+            6001
+          ];
+        };
+
+        avahi = {
+          enable = true;
+          publish = {
+            enable = true;
+            workstation = true; # e.g. override just one
+          };
+        };
+
+        extraPackages = with pkgs; [
+          uxplay
+          vlc
+        ];
+      };
     };
     services = {
       linkding.enable = true;

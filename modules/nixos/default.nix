@@ -23,5 +23,6 @@ in
     ./podman
     ./obs-studio
     ./services
+    ./uxplay
   ];
 }

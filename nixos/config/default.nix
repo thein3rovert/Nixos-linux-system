@@ -14,7 +14,7 @@
     ./security.nix
     ./hardware.nix
     ./nixSettings.nix
-    ./uxplay.nix
+    # ./uxplay.nix
     ./battery.nix
     # ./vm.nix
     ./fonts.nix
