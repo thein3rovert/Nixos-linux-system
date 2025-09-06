@@ -24,5 +24,6 @@ in
     ./obs-studio
     ./services
     ./uxplay
+    ./desktop
   ];
 }

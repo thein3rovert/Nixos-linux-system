@@ -30,6 +30,9 @@ in
   # CUSTOM MODULES
   # --------------------
   nixosSetup = {
+    desktop = {
+      fonts.enable = true;
+    };
     programs = {
       podman.enable = true;
       obs-studio.enable = true;
@@ -324,7 +327,7 @@ in
     luajitPackages.jsregexp
     just
     cargo
-    nil # Used for my lua-language-server
+    nil # nix-language-server
 
     #   === Packages for home.nix ===
     # System Utilities
@@ -380,6 +383,7 @@ in
 
     textsnatcher
 
+    nix-web
   ];
 
   fonts = {
