@@ -5,6 +5,10 @@
   lib,
   ...
 }:
+let
+  # TODO: Move dank mono config to module or closer to module
+  dankmono-nerdfonts = pkgs.callPackage ../../../../nixos/config/dankMono.nix { inherit pkgs; };
+in
 {
   options.nixosSetup.desktop.fonts.enable = lib.mkEnableOption "All System Fonts";
 

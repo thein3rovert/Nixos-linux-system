@@ -1,8 +1,6 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-
-#{ config, pkgs,username, hostname, ... }:
 {
   config,
   pkgs,
@@ -11,7 +9,6 @@
 }:
 
 let
-  dankmono-nerdfonts = pkgs.callPackage ../config/dankMono.nix { inherit pkgs; };
   inherit (import ../../options.nix)
     theLocale
     theTimezone
@@ -385,33 +382,6 @@ in
 
     nix-web
   ];
-
-  fonts = {
-    fontDir.enable = true;
-    enableGhostscriptFonts = true;
-    packages = with pkgs; [
-      cantarell-fonts
-      hack-font
-      inter
-      jetbrains-mono
-      liberation_ttf
-      monaspace
-      noto-fonts
-      ubuntu_font_family
-      nerd-fonts.fira-code
-      nerd-fonts.droid-sans-mono
-      nerd-fonts.jetbrains-mono
-      dankmono-nerdfonts
-
-      # === INFO: Moved homr-manager fonts ===
-      fira-code
-      fira-code-symbols
-      nerd-fonts.fira-code
-      font-manager
-      font-awesome_5
-      noto-fonts
-    ];
-  };
 
   ########
   # WAYBAR
