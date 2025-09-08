@@ -131,37 +131,6 @@ in
   #  networking.hostName = "${hostname}"; # Define your hostname
   networking.hostName = "nixos"; # Define your hostname
   networking.networkmanager.enable = true;
-
-  # virtualisation.docker.enable = true;
-  # virtualisation.docker.rootless = {
-  #   enable = true;
-  #   setSocketVariable = true;
-  # };
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
-
-  #  networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-  #  networking.proxy.default = "${socksProxy}";
-  #  networking.proxy.allProxy = "${socksProxy}";
-  #  networking.proxy.rsyncProxy = "${socksProxy}";
-  #  networking.proxy.httpProxy = "${httpProxy}";
-  #  networking.proxy.httpsProxy = "${httpProxy}";
-  #  networking.proxy.ftpProxy = "${httpProxy}";
-
-  # Configuring NETWORK SETUP
-  #networking.firewall.enable = true;
-  #networking.forwarding = true;
-  # boot.kernel.sysctl."net.inet.ip_forward" = 1;
-
   security.rtkit.enable = true;
   security.sudo.extraRules = [
     {
