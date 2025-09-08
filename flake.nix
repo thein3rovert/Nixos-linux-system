@@ -1,29 +1,33 @@
 # CHANGES MADE - Switch to a new flake configuration.
 {
-  description = "Your new nix config";
+  description = "This is a configuration for managing multiple nixos machines";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    #nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
+
+    agenix.url = "github:ryantm/agenix";
+
+    catppuccin.url = "github:catppuccin/nix";
+
+    colmena.url = "github:zhaofengli/colmena";
+
     home-manager = {
-      #url = "github:nix-community/home-manager"; Later if i want to update to the latest version i will just uncomment this
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
     hyprland = {
       url = "github:hyprwm/Hyprland";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    zen-browser.url = "github:0xc000022070/zen-browser-flake";
 
-    catppuccin.url = "github:catppuccin/nix";
-
-    stylix.url = "github:danth/stylix"; # Dont need this for now
     nix-colors.url = "github:misterio77/nix-colors";
 
-    # ADDED: Colmena input
-    colmena.url = "github:zhaofengli/colmena";
-    #
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+
+    stylix.url = "github:danth/stylix";
+
+    zen-browser.url = "github:0xc000022070/zen-browser-flake";
+
     # ghostty = {
     #   url = "github:ghostty-org/ghostty";
     # };
@@ -32,6 +36,7 @@
   # REMEMBER TO BACKUP
   outputs =
     {
+      agenix,
       self,
       home-manager,
       nixpkgs,
@@ -43,6 +48,7 @@
       ...
     }@inputs:
     let
+      inherit (self) outputs;
       allSystems = [
         "aarch64-linux"
         "i686-linux"
@@ -57,7 +63,10 @@
           system:
           f {
             pkgs = import self.inputs.nixpkgs {
-              # inherit overlays system;
+              inherit
+                # overlays
+                system
+                ;
               config.allowUnfree = true;
             };
           }
@@ -80,10 +89,13 @@
               nix-colors
               ;
           };
+
+          # === Modules ===
           modules = [
             ./nixos/${host}
-            self.inputs.home-manager.nixosModules.home-manager
+            agenix.nixosModules.default
             catppuccin.nixosModules.catppuccin
+            self.inputs.home-manager.nixosModules.home-manager
 
             # === Custom Modules ===
             self.nixosModules.nixosOs
