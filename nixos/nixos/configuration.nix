@@ -64,7 +64,10 @@ in
       };
     };
     services = {
-      linkding.enable = true;
+      linkding = {
+        enable = true;
+        linkding-env = config.age.secrets.linkding.path;
+      };
     };
   };
 
