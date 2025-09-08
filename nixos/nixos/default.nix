@@ -35,6 +35,7 @@
 {
   imports = [
     # ../common
+    ./secret.nix
     ./configuration.nix
     ./home.nix
   ];

@@ -16,5 +16,5 @@ let
 in
 {
   "secret2.age".publicKeys = systems ++ users;
-  # "linkding-env.age".publicKeys = systems ++ users;
+  "linkding-env.age".publicKeys = systems ++ users;
 }
